@@ -1,13 +1,15 @@
 package com.hmbackend.bean;
 
-import java.util.List;
-import com.hmbackend.bean.Patient;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class Doctor {
-        private String name;
-        private String doctorPassword;
-        private String doctorID;
-        private Integer age;
-        private String doctorUsername;
-        private List<Patient> list;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Doctor extends User{
+    private int id;
+    private String name;
+    private String sex;
+    private String work;
 }
