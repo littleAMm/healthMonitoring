@@ -1,4 +1,4 @@
-package com.example.hmbackend;
+package com.hmbackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
