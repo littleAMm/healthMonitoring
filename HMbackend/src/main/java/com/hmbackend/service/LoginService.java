@@ -8,12 +8,6 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * @author_name:xiatao
- * @data:2022/3/26
- * @time:19:12
- */
-
 @Service
 public class LoginService {
     @Autowired
