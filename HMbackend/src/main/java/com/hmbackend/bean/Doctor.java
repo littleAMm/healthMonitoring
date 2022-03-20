@@ -1,7 +1,7 @@
-package com.hmbackend.Bean;
+package com.hmbackend.bean;
 
 import java.util.List;
-import com.hmbackend.Bean.Patient;
+import com.hmbackend.bean.Patient;
 
 public class Doctor {
         private String name;
