@@ -17,4 +17,8 @@ public class DoctorController {
     public String addPatient(@RequestParam("patientId")String patientId){
         return doctorService.addPatient(patientId);
     }
+    @RequestMapping(value = "/allPatient",method = RequestMethod.POST)
+    public String queryAllPatient(){
+        return doctorService.queryPatient();
+    }
 }
