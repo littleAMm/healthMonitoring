@@ -1,10 +1,9 @@
 package com.hmbackend.mapper;
 
-import org.mapstruct.Mapper;
-import org.springframework.stereotype.Repository;
+
+import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-@Repository
 public interface DoctorMapper {
-
+    
 }
