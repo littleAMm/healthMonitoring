@@ -20,5 +20,4 @@ public class Doctor extends User{
     private String name;
     private String sex;
     private String work;
-
 }
