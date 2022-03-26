@@ -7,15 +7,19 @@
     <select id="login" resultType="com.hmbackend.bean.User">
         select *
         from hospital.user
-        where username=#{username}
-        and password=#{password}
+        where username = #{username}
+          and password = #{password}
     </select>
 
     <insert id="register" parameterType="com.hmbackend.bean.User">
         insert into hospital.user(username, password)
-        values (#{username},#{password});
+        values (#{username}, #{password});
     </insert>
 
-
+    <select id="queryUserByName" resultType="_int">
+        select *
+        from hospital.user
+        where username = #{username};
+    </select>
 
 </mapper>
