@@ -1,7 +1,6 @@
 package com.hmbackend.controller;
 
 import com.hmbackend.service.AdminServie;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin")
-public class AdminrController {
+public class AdminController {
     @Autowired
     AdminServie adminServie;
 
-    @RequestMapping(value = "/createDoctor",method = RequestMethod.POST)
+    @RequestMapping(value = "/addDoctor",method = RequestMethod.POST)
     public String createDoctor(@RequestParam("username") String username,
                                @RequestParam("name")String name,
                                @RequestParam("sex") String sex,
                                @RequestParam("work") String work){
-        return adminServie.createDoctor(username, name, sex, work);
+        return adminServie.addDoctor(username, name, sex, work);
     }
 }
