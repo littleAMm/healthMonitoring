@@ -32,11 +32,11 @@ public class LoginService {
     }
 
     //该注册界面仅用于患者注册，医生有管理员添加
-    public String register(String username,String password){
+    public String register(String username,String password,String role){
         if(loginRegMapper.queryUserByName(username)!=null){
             return "用户名重复，请重新输入";
         }else {
-            User user = new User(username,password);
+            User user = new User(username,password,role);
             loginRegMapper.register(user);
             return "注册成功";
         }
