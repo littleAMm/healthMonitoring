@@ -5,8 +5,6 @@ import com.hmbackend.mapper.LoginRegMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @Service
 public class LoginService {
@@ -29,7 +27,7 @@ public class LoginService {
 
     //该注册界面仅用于患者注册，医生有管理员添加
     public String register(String username,String password){
-        if(loginRegMapper.queryUserByName(username)<1){
+        if(loginRegMapper.queryUserByName(username)!=null){
             return "用户名重复，请重新输入";
         }else {
             User user = new User(username,password);

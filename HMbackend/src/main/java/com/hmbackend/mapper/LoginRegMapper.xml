@@ -16,7 +16,7 @@
         values (#{username}, #{password});
     </insert>
 
-    <select id="queryUserByName" resultType="_int">
+    <select id="queryUserByName" resultType="com.hmbackend.bean.User">
         select *
         from hospital.user
         where username = #{username};
