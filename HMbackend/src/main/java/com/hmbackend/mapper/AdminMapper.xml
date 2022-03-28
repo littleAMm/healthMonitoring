@@ -11,6 +11,6 @@
     <select id="queryDoctorByID" resultType="com.hmbackend.bean.Doctor">
         select *
         from hospital.doctor
-        where id = #{id};
+        where username = #{username};
     </select>
 </mapper>

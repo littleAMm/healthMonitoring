@@ -2,8 +2,11 @@ package com.hmbackend.service;
 
 import com.hmbackend.bean.Doctor;
 import com.hmbackend.mapper.AdminMapper;
+import com.hmbackend.mapper.LoginRegMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.print.Doc;
 
 /**
  * @author_name:xiatao
@@ -16,13 +19,16 @@ public class AdminServie {
     @Autowired
     AdminMapper adminMapper;
 
-    public String createDoctor(int id,String name,String sex,String work){
-        Doctor doctor = new Doctor(id,name,sex,work);
-        if (adminMapper.queryDoctorByID(id)!=null){
-            return "添加失败，医生id重复";
-        }else{
+    @Autowired
+    LoginRegMapper loginRegMapper;
+
+    public String createDoctor(String username, String name, String sex, String work) {
+        if(loginRegMapper.queryUserByName(username)!=null){
+            Doctor doctor = new Doctor(username,name,sex,work);
             adminMapper.addDoctor(doctor);
             return "添加成功";
+        }else {
+            return "用户名重复，请重新输入";
         }
     }
 

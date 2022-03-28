@@ -39,7 +39,8 @@ public class LoginController {
     @RequestMapping(value = "/reg", method = RequestMethod.POST)
     public String register(@RequestParam("username") String username,
                            @RequestParam("password") String password,
-                           @RequestParam("role") String role) {
-        return loginService.register(username, password, role);
+                           @RequestParam("name") String name,
+                           @RequestParam("sex") String sex) {
+        return loginService.register(username, password, name, sex);
     }
 }

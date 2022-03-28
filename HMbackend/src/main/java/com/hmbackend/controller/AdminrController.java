@@ -21,10 +21,10 @@ public class AdminrController {
     AdminServie adminServie;
 
     @RequestMapping(value = "/createDoctor",method = RequestMethod.POST)
-    public String createDoctor(@RequestParam("id") int id,
+    public String createDoctor(@RequestParam("username") String username,
                                @RequestParam("name")String name,
                                @RequestParam("sex") String sex,
                                @RequestParam("work") String work){
-        return adminServie.createDoctor(id, name, sex, work);
+        return adminServie.createDoctor(username, name, sex, work);
     }
 }
