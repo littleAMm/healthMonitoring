@@ -32,5 +32,5 @@ CREATE TABLE rx(
 CREATE TABLE docpat(
                        doctor_id INT(11),
                        patient_id INT(11),
-                       PRIMARY KEY(docpat_id,patient_id)
+                       PRIMARY KEY(doctor_id,patient_id)
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
