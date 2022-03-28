@@ -12,8 +12,8 @@
     </select>
 
     <insert id="register" parameterType="com.hmbackend.bean.User">
-        insert into hospital.user(username, password)
-        values (#{username}, #{password});
+        insert into hospital.user(username, password,role)
+        values (#{username}, #{password},#{role});
     </insert>
 
     <insert id="regPatient" parameterType="com.hmbackend.bean.Patient">
