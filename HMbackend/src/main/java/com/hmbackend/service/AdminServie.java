@@ -22,12 +22,12 @@ public class AdminServie {
     @Autowired
     LoginRegMapper loginRegMapper;
 
-    public String createDoctor(String username, String name, String sex, String work) {
-        if(loginRegMapper.queryUserByName(username)!=null){
-            Doctor doctor = new Doctor(username,name,sex,work);
+    public String addDoctor(String username, String name, String sex, String work) {
+        if (loginRegMapper.queryUserByName(username) != null) {
+            Doctor doctor = new Doctor(username, name, sex, work);
             adminMapper.addDoctor(doctor);
             return "添加成功";
-        }else {
+        } else {
             return "用户名重复，请重新输入";
         }
     }
