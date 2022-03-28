@@ -38,7 +38,7 @@ public class LoginService {
         if (loginRegMapper.queryUserByName(username) != null) {
             return "用户名重复，请重新输入";
         } else {
-            User user = new User(username, password);
+            User user = new User(username, password,"患者");
             Patient patient = new Patient(username, name, sex);
             loginRegMapper.register(user);
             loginRegMapper.regPatient(patient);

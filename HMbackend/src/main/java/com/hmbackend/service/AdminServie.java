@@ -1,6 +1,7 @@
 package com.hmbackend.service;
 
 import com.hmbackend.bean.Doctor;
+import com.hmbackend.bean.User;
 import com.hmbackend.mapper.AdminMapper;
 import com.hmbackend.mapper.LoginRegMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,9 @@ public class AdminServie {
     LoginRegMapper loginRegMapper;
 
     public String addDoctor(String username, String name, String sex, String work) {
-        if (loginRegMapper.queryUserByName(username) != null) {
+        if (loginRegMapper.queryUserByName(username) == null) {
+            User user = new User(username,"123456","医生");
+            loginRegMapper.register(user);
             Doctor doctor = new Doctor(username, name, sex, work);
             adminMapper.addDoctor(doctor);
             return "添加成功";
