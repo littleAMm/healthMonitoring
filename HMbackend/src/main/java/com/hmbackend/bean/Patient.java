@@ -12,9 +12,15 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Patient extends User{
+    private String username;
     private int id;
     private String name;
     private String sex;
+
+    public Patient(String username, String name, String sex) {
+        this.username = username;
+        this.name = name;
+        this.sex = sex;
+    }
 }
