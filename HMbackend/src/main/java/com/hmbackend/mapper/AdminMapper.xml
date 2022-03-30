@@ -4,13 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hmbackend.mapper.AdminMapper">
     <insert id="addDoctor" parameterType="com.hmbackend.bean.Doctor">
-        insert into hospital.doctor(id, name, sex, work)
-        values (#{id}, #{name}, #{sex}, #{work});
+        insert into hospital.doctor(username, name, sex, work)
+        values (#{username}, #{name}, #{sex}, #{work});
     </insert>
 
-    <select id="queryDoctorByID" resultType="com.hmbackend.bean.Doctor">
-        select *
-        from hospital.doctor
-        where id = #{id};
-    </select>
+
 </mapper>

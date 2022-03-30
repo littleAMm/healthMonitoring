@@ -14,8 +14,7 @@ import java.io.IOException;
 /**
  * @author_name:xiatao
  * @data:2022/3/24
- * @time:17:17
- * 测试用
+ * @time:17:17 测试用
  */
 
 @RestController
@@ -24,22 +23,24 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
                         HttpServletResponse response) throws IOException {
-        String result =  loginService.login(username,password);
-        if (result.charAt(0)=='/'){
+        String result = loginService.login(username, password);
+        if (result.charAt(0) == '/') {
             response.sendRedirect(result);
             return "";
-        }else {
+        } else {
             return result;
         }
     }
 
-    @RequestMapping(value = "/reg",method = RequestMethod.POST)
+    @RequestMapping(value = "/reg", method = RequestMethod.POST)
     public String register(@RequestParam("username") String username,
-                           @RequestParam("password") String password){
-        return loginService.register(username,password);
+                           @RequestParam("password") String password,
+                           @RequestParam("name") String name,
+                           @RequestParam("sex") String sex) {
+        return loginService.register(username, password, name, sex);
     }
 }
