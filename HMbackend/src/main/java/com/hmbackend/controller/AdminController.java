@@ -1,5 +1,6 @@
 package com.hmbackend.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hmbackend.service.AdminServie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,5 +26,10 @@ public class AdminController {
                                @RequestParam("sex") String sex,
                                @RequestParam("work") String work){
         return adminServie.addDoctor(username, name, sex, work);
+    }
+
+    @RequestMapping("/allDoctor")
+    public String queryAllDoctor(){
+        return adminServie.queryAllDoctor();
     }
 }

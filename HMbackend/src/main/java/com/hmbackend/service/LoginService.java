@@ -1,7 +1,10 @@
 package com.hmbackend.service;
 
+import com.alibaba.fastjson.JSON;
+import com.hmbackend.bean.Doctor;
 import com.hmbackend.bean.Patient;
 import com.hmbackend.bean.User;
+import com.hmbackend.mapper.AdminMapper;
 import com.hmbackend.mapper.LoginRegMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,17 +20,24 @@ import org.springframework.stereotype.Service;
 public class LoginService {
     @Autowired
     LoginRegMapper loginRegMapper;
+    @Autowired
+    AdminMapper adminMapper;
 
     public String login(String username, String password) {
+        String result = null;
         User user = loginRegMapper.login(username, password);
         if (user == null) {
             return "用户名或密码错误，请重新输入";
         } else if (user.getRole().equals("管理员")) {
-            return "/admin.html";
+            return "/admin";
         } else if (user.getRole().equals("患者")) {
-            return "/patient";
+            Patient patient = adminMapper.queryPatientByUsername(username);
+            result = JSON.toJSONString(patient);
+            return result;
         } else if (user.getRole().equals("医生")) {
-            return "/doctor";
+            Doctor doctor = adminMapper.queryDoctorByUsername(username);
+            result = JSON.toJSONString(doctor);
+            return result;
         }
         return "/login";
     }

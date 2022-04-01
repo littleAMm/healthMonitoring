@@ -6,7 +6,6 @@ import com.hmbackend.bean.WorkTime;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @Mapper
@@ -24,6 +23,11 @@ public interface AdminMapper {
     //查找患者健康状况为”差“的患者
     List<Patient> queryPatientUnhealthy();
 
+    List<Doctor> queryAllDoctor();
+
     //为医生排班
     int arrangeTime(WorkTime workTime);
+
+    Doctor queryDoctorByUsername(@Param("username") String username);
+    Patient queryPatientByUsername(@Param("username") String username);
 }
