@@ -30,19 +30,11 @@
         where user.username = #{username};
     </update>
 
-<!--    <select id="queryPatientUnhealthy" resultMap="healthMap">-->
-<!--        select *-->
-<!--        from hospital.patient-->
-<!--        where patient.id = #{id};-->
-<!--    </select>-->
-<!--    <resultMap id="healthMap" type="Patient">-->
-<!--        <collection property="patients" column="id" ofType="com.hmbackend.bean.Health" select="queryHealth"></collection>-->
-<!--    </resultMap>-->
-<!--    <select id="queryHealth" resultType="com.hmbackend.bean.Health">-->
-<!--        select *-->
-<!--        from hospital.health-->
-<!--        where health.status = #{"差"};-->
-<!--    </select>-->
+    <select id="queryPatientUnhealthy" resultType="com.hmbackend.bean.Patient">
+        select _p.*
+        from hospital.patient _p, hospital.health _h
+        where _h.status = #{"差"} and _p.id = _h.patient_id;
+    </select>
 
     <insert id="arrangeTime" parameterType="com.hmbackend.bean.WorkTime">
         insert into hospital.worktime(doctor_id, start_time, end_time)
@@ -63,5 +55,11 @@
         select *
         from hospital.patient
         where patient.username = #{username};
+    </select>
+
+    <select id="queryDoctorById" resultType="com.hmbackend.bean.Doctor">
+        select *
+        from hospital.doctor
+        where id = #{id};
     </select>
 </mapper>

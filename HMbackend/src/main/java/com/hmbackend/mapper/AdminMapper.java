@@ -27,6 +27,7 @@ public interface AdminMapper {
 
     //为医生排班
     int arrangeTime(WorkTime workTime);
+    Doctor queryDoctorById(int id);
 
     Doctor queryDoctorByUsername(@Param("username") String username);
     Patient queryPatientByUsername(@Param("username") String username);
