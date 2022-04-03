@@ -24,4 +24,7 @@ public class Doctor extends User {
         this.sex = sex;
         this.work = work;
     }
+    public int getId() {
+        return id;
+    }
 }

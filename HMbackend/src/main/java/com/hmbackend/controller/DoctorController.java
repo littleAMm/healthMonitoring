@@ -1,11 +1,11 @@
 package com.hmbackend.controller;
 
+import com.hmbackend.bean.Doctor;
 import com.hmbackend.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.sql.Timestamp;
 
 @RestController
 @RequestMapping("/doctor")
@@ -14,11 +14,16 @@ public class DoctorController {
     private DoctorService doctorService;
 
     @RequestMapping(value = "/addPatient",method = RequestMethod.POST)
-    public String addPatient(@RequestParam("patientId")String patientId){
-        return doctorService.addPatient(patientId);
+    public String addPatient(Doctor doctor, @RequestParam("patientId")String patientId){
+        return doctorService.addPatient(doctor,patientId);
     }
-    @RequestMapping(value = "/allPatient",method = RequestMethod.POST)
-    public String queryAllPatient(){
-        return doctorService.queryPatient();
+    @GetMapping("/allPatient")
+    public String queryAllPatient(Doctor doctor){
+        return doctorService.queryPatient(doctor.getId());
+    }
+    @PostMapping("/creatRx")
+    public String creatRx(@RequestParam("patientId") int patientId,
+                          @RequestParam("content") String content){
+        return doctorService.creatRx(patientId,content);
     }
 }
