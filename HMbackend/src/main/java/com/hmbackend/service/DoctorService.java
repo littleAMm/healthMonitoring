@@ -6,7 +6,6 @@ import com.hmbackend.bean.Patient;
 import com.hmbackend.bean.Rx;
 import com.hmbackend.mapper.DoctorMapper;
 import com.hmbackend.mapper.PatientMapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +19,11 @@ public class DoctorService {
     private PatientMapper patientMapper;
 
     //增加自己的患者，如果未注册返回
-    public String addPatient(Doctor doctor,@Param("patient_id") String patientId){
+    public String addPatient(int doctorId,String patientId){
         if(patientMapper.queryPatientById(patientId)==null){
             return"此患者未注册";
         }else{
-            doctorMapper.addPatient(Integer.toString(doctor.getId()),patientId);
+            doctorMapper.addPatient(Integer.toString(doctorId),patientId);
          return"添加成功";
         }
     }
@@ -57,4 +56,44 @@ public class DoctorService {
         }
     }
 
+    //修改个人信息
+    public String changeUsername(int doctorId,String username){
+        if(doctorMapper.queryDoctorById(doctorId)==null){
+            return"此医生不存在";
+        }else{
+        Doctor doctor=doctorMapper.queryDoctorById(doctorId);
+        return doctorMapper.changeSelfIfm(username,doctor.getName(),doctor.getSex(),doctor.getWork(),Integer.toString(doctor.getId()));
+        }
+    }
+    public String changeName(int doctorId,String name){
+        if(doctorMapper.queryDoctorById(doctorId)==null){
+            return"此医生不存在";
+        }else{Doctor doctor=doctorMapper.queryDoctorById(doctorId);
+            return doctorMapper.changeSelfIfm(doctor.getUsername(),name,doctor.getSex(),doctor.getWork(),Integer.toString(doctor.getId()));
+        }
+    }
+    public String changesex(int doctorId,String sex){
+        if(doctorMapper.queryDoctorById(doctorId)==null){
+            return"此医生不存在";
+        }else{Doctor doctor=doctorMapper.queryDoctorById(doctorId);
+            return doctorMapper.changeSelfIfm(doctor.getUsername(),doctor.getName(),sex,doctor.getWork(),Integer.toString(doctor.getId()));
+        }
+    }
+    public String changeWork(int doctorId,String work){
+        if(doctorMapper.queryDoctorById(doctorId)==null){
+            return"此医生不存在";
+        }else{Doctor doctor=doctorMapper.queryDoctorById(doctorId);
+            return doctorMapper.changeSelfIfm(doctor.getUsername(),doctor.getName(),doctor.getSex(),work,Integer.toString(doctor.getId()));
+        }
+    }
+
+    //查询个人信息
+    public String checkIfm(int doctorId){
+        if(doctorMapper.queryDoctorById(doctorId)==null){
+            return"此医生不存在";
+        }else{
+            doctorMapper.checkIfm(Integer.toString(doctorId));
+            return "成功";
+        }
+    }
 }

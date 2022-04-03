@@ -21,5 +21,19 @@
         insert into hospital.rx(patient_id, content)
         values (#{patientId},#{content});
     </insert>
-
+    <update id="changeIfm" parameterType="String">
+        update hospital.doctor
+        set doctor.username = #{doctor_username} ,doctor.name=#{doctor_name},doctor.sex=#{doctor_sex},doctor.work=#{doctor_work}
+        where doctor.Id = #{doctor_id};
+    </update>
+    <select id="checkIfm" resultType="com.hmbackend.bean.Doctor">
+        select *
+        from hospital.doctor
+        where doctor.id = #{doctorId};
+    </select>
+    <select id="queryDoctorById" resultType="com.hmbackend.bean.Doctor">
+        select *
+        from hospital.doctor
+        where id = #{id};
+    </select>
 </mapper>
