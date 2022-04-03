@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS doctor;
 DROP TABLE IF EXISTS rx;
 DROP TABLE IF EXISTS docpat;
 DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS health;
+DROP TABLE IF EXISTS worktime;
 
 CREATE TABLE patient(
                         username VARCHAR(20) UNIQUE,
@@ -33,4 +35,15 @@ CREATE TABLE docpat(
                        doctor_id INT(11),
                        patient_id INT(11),
                        PRIMARY KEY(doctor_id,patient_id)
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
+CREATE TABLE health(
+                       patient_id INT(11) PRIMARY KEY,
+                       tmep DOUBLE,
+                       status VARCHAR(2) DEFAULT '良好'
+                           CHECK(status in ('健康','良好','差'))
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
+CREATE TABLE worktime(
+                         doctor_id INT(11) PRIMARY KEY,
+                         start_time TIMESTAMP,
+                         end_time TIMESTAMP
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
