@@ -17,6 +17,7 @@ public class DoctorService {
     private DoctorMapper doctorMapper;
     @Autowired
     private PatientMapper patientMapper;
+    //增加自己的患者
     public String addPatient(Doctor doctor,@Param("patient_id") String patientId){
         if(patientMapper.queryPatientById(patientId)==null){
             return"此患者未注册";
@@ -25,6 +26,7 @@ public class DoctorService {
          return"添加成功";
         }
     }
+    //展示自己的患者
     public String queryPatient(int doctorId){
         String result = null;
         try{
@@ -39,6 +41,7 @@ public class DoctorService {
         }
         return result;
     }
+    //为患者创建处方
     public String creatRx(int patientId,String content){
         Patient patient = doctorMapper.queryPatientById(Integer.toString(patientId));
         if (patient==null){
