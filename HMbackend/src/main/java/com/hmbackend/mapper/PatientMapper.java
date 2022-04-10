@@ -1,14 +1,10 @@
 package com.hmbackend.mapper;
 
+import com.hmbackend.bean.Patient;
 import org.apache.ibatis.annotations.Mapper;
-
-/**
- * @author_name:xiatao
- * @data:2022/3/26
- * @time:12:55
- */
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface PatientMapper {
-
+    Patient queryPatientById(@Param("patientid") String patientid);
 }
