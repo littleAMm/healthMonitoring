@@ -5,7 +5,6 @@ import com.hmbackend.bean.Patient;
 import com.hmbackend.bean.WorkTime;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 
 @Mapper

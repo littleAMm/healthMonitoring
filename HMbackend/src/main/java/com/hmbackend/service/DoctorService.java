@@ -19,11 +19,11 @@ public class DoctorService {
     private PatientMapper patientMapper;
 
     //增加自己的患者，如果未注册返回
-    public String addPatient(int doctorId,String patientId){
+    public String addPatient(int doctorId,int patientId){
         if(patientMapper.queryPatientById(patientId)==null){
             return"此患者未注册";
         }else{
-            doctorMapper.addPatient(Integer.toString(doctorId),patientId);
+            doctorMapper.addPatient(doctorId,patientId);
          return"添加成功";
         }
     }
@@ -32,9 +32,9 @@ public class DoctorService {
     public String queryPatient(int doctorId){
         String result = null;
         try{
-            List<String> list = doctorMapper.queryAllPatient(Integer.toString(doctorId));
+            List<Integer> list = doctorMapper.queryAllPatient(doctorId);
             List<Patient>allPatient = null;
-            for (String s:list) {
+            for (int s:list) {
                 allPatient.add(doctorMapper.queryPatientById(s));
             }
             result = JSON.toJSONString(list);
@@ -46,7 +46,7 @@ public class DoctorService {
 
     //为患者创建处方
     public String creatRx(int patientId,String content){
-        Patient patient = doctorMapper.queryPatientById(Integer.toString(patientId));
+        Patient patient = doctorMapper.queryPatientById(patientId);
         if (patient==null){
             return "ID错误，请检查";
         }else{
@@ -62,28 +62,28 @@ public class DoctorService {
             return"此医生不存在";
         }else{
         Doctor doctor=doctorMapper.queryDoctorById(doctorId);
-        return doctorMapper.changeSelfIfm(username,doctor.getName(),doctor.getSex(),doctor.getWork(),Integer.toString(doctor.getId()));
+        return doctorMapper.changeSelfIfm(username,doctor.getName(),doctor.getSex(),doctor.getWork(),doctorId);
         }
     }
     public String changeName(int doctorId,String name){
         if(doctorMapper.queryDoctorById(doctorId)==null){
             return"此医生不存在";
         }else{Doctor doctor=doctorMapper.queryDoctorById(doctorId);
-            return doctorMapper.changeSelfIfm(doctor.getUsername(),name,doctor.getSex(),doctor.getWork(),Integer.toString(doctor.getId()));
+            return doctorMapper.changeSelfIfm(doctor.getUsername(),name,doctor.getSex(),doctor.getWork(),doctorId);
         }
     }
     public String changesex(int doctorId,String sex){
         if(doctorMapper.queryDoctorById(doctorId)==null){
             return"此医生不存在";
         }else{Doctor doctor=doctorMapper.queryDoctorById(doctorId);
-            return doctorMapper.changeSelfIfm(doctor.getUsername(),doctor.getName(),sex,doctor.getWork(),Integer.toString(doctor.getId()));
+            return doctorMapper.changeSelfIfm(doctor.getUsername(),doctor.getName(),sex,doctor.getWork(),doctorId);
         }
     }
     public String changeWork(int doctorId,String work){
         if(doctorMapper.queryDoctorById(doctorId)==null){
             return"此医生不存在";
         }else{Doctor doctor=doctorMapper.queryDoctorById(doctorId);
-            return doctorMapper.changeSelfIfm(doctor.getUsername(),doctor.getName(),doctor.getSex(),work,Integer.toString(doctor.getId()));
+            return doctorMapper.changeSelfIfm(doctor.getUsername(),doctor.getName(),doctor.getSex(),work,doctorId);
         }
     }
 
@@ -92,7 +92,7 @@ public class DoctorService {
         if(doctorMapper.queryDoctorById(doctorId)==null){
             return"此医生不存在";
         }else{
-            doctorMapper.checkIfm(Integer.toString(doctorId));
+            doctorMapper.checkIfm(doctorId);
             return "成功";
         }
     }

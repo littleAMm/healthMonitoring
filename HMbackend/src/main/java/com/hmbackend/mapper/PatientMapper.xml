@@ -3,9 +3,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hmbackend.mapper.PatientMapper">
-
-
-
+    <!--用户选择医生后插入用户和医生的关系-->
+    <insert id="addDoctor" parameterType="com.hmbackend.bean.Patient">
+        insert into hospital.docpat(doctor_id,patient_id)
+        values (#{doctorId},#{patientId});
+    </insert>
+    <!--根据用户id查询医生-->
+    <select id="queryDoctor" resultType="com.hmbackend.bean.Doctor">
+        select *
+        from hospital.docpat
+        where docpat.patient_id = #{patientId};
+    </select>
+    <!--删除用户选中的医生-->
+    <delete id="deleteDoctor" parameterType="String">
+        delete
+        from hospital.docpat
+        where docpat.patient_id = #{id};
+    </delete>
+    <insert id="creatHealth" parameterType="com.hmbackend.bean.Health">
+        insert into hospital.health()
+        values ();
+    </insert>
 
 
 </mapper>
