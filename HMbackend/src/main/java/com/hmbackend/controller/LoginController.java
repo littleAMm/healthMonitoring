@@ -25,15 +25,9 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        HttpServletResponse response) throws IOException {
+                        @RequestParam("password") String password) {
         String result = loginService.login(username, password);
-        if (result.charAt(0) == '/') {
-            response.sendRedirect(result);
-            return "";
-        } else {
-            return result;
-        }
+        return result;
     }
 
     @RequestMapping(value = "/reg", method = RequestMethod.POST)

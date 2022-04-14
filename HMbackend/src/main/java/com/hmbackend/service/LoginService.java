@@ -29,7 +29,7 @@ public class LoginService {
         if (user == null) {
             return "用户名或密码错误，请重新输入";
         } else if (user.getRole().equals("管理员")) {
-            return "/admin";
+            return "管理员";
         } else if (user.getRole().equals("患者")) {
             Patient patient = adminMapper.queryPatientByUsername(username);
             result = JSON.toJSONString(patient);
@@ -39,7 +39,7 @@ public class LoginService {
             result = JSON.toJSONString(doctor);
             return result;
         }
-        return "/login";
+        return result;
     }
 
     //该注册界面仅用于患者注册，医生有管理员添加
