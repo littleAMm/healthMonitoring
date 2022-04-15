@@ -1,33 +1,25 @@
 package com.hmbackend.service;
 
-import com.hmbackend.bean.Doctor;
 import com.hmbackend.bean.Patient;
+import com.hmbackend.mapper.AdminMapper;
 import com.hmbackend.mapper.PatientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+/**
+ * @author_name:xiatao
+ * @data:2022/4/14
+ * @time:14:23
+ */
+@Service
 public class PatientService {
     @Autowired
-    private PatientMapper patientMapper;
+    PatientMapper patientMapper;
+    @Autowired
+    AdminMapper adminMapper;
 
-    public Patient queryPatientById(int patientId) {
-        return patientMapper.queryPatientById(patientId);
-    }
-
-    public String addDoctor(int doctorId,int patientId){
-        if(patientMapper.queryPatientById(patientId)==null){
-            return"此患者未注册";
-        }else{
-            patientMapper.addDoctor(doctorId,patientId);
-            return"添加成功";
-        }
-    }
-
-    public Doctor queryDoctor(int userId) {
-        return patientMapper.queryDoctor(userId);
-    }
-
-    public int deleteDoctor(int id) {
-        return patientMapper.deleteDoctor(id);
+    public Patient queryPatientByUsername(String username){
+        return adminMapper.queryPatientByUsername(username);
     }
 
 }

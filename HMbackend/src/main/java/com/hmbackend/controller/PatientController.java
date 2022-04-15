@@ -1,33 +1,26 @@
 package com.hmbackend.controller;
 
-import com.hmbackend.bean.Doctor;
 import com.hmbackend.bean.Patient;
 import com.hmbackend.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author_name:xiatao
+ * @data:2022/4/14
+ * @time:14:23
+ */
+
+@RestController
+@RequestMapping("/patient")
 public class PatientController {
     @Autowired
-    private PatientService patientService;
+    PatientService patientService;
 
-    @GetMapping(value = "/checkPatientInfo")
-    public Patient checkPatientInfo(@RequestParam("patientId")int patientId) {
-        return patientService.queryPatientById(patientId);
+    @PostMapping("/info")
+    Patient queryInfo(@RequestParam("username") String username){
+        return patientService.queryPatientByUsername(username);
     }
 
-    @PostMapping(value = "/addPatientDoctor")
-    public String addPatientDoctor(@RequestParam("doctorId")int doctorId,
-                                    @RequestParam("patientId")int patientId) {
-        return patientService.addDoctor(doctorId,patientId);
-    }
-
-    @GetMapping(value = "/queryDoctor")
-    public Doctor getUserDoctor(@RequestParam("patientId")int patientId) {
-        return patientService.queryDoctor(patientId);
-    }
-
-    @PostMapping(value = "/deletePatientDoctor")
-    public int deletePatientDoctor(int id) {
-        return patientService.deleteDoctor(id);
-    }
+//    @GetMapping
 }

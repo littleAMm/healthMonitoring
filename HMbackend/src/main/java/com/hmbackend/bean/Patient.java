@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Patient extends User{
+public class Patient{
     private String username;
     private int id;
     private String name;

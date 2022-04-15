@@ -1,7 +1,5 @@
 package com.hmbackend.service;
 
-import com.alibaba.fastjson.JSON;
-import com.hmbackend.bean.Doctor;
 import com.hmbackend.bean.Patient;
 import com.hmbackend.bean.User;
 import com.hmbackend.mapper.AdminMapper;
@@ -18,22 +16,17 @@ public class LoginService {
     AdminMapper adminMapper;
 
     public String login(String username, String password) {
-        String result = null;
         User user = loginRegMapper.login(username, password);
         if (user == null) {
             return "用户名或密码错误，请重新输入";
         } else if (user.getRole().equals("管理员")) {
-            return "/admin";
+            return "管理员";
         } else if (user.getRole().equals("患者")) {
-            Patient patient = adminMapper.queryPatientByUsername(username);
-            result = JSON.toJSONString(patient);
-            return result;
+            return "患者";
         } else if (user.getRole().equals("医生")) {
-            Doctor doctor = adminMapper.queryDoctorByUsername(username);
-            result = JSON.toJSONString(doctor);
-            return result;
+            return "医生";
         }
-        return "/login";
+        return "有问题啦";
     }
 
     //该注册界面仅用于患者注册，医生有管理员添加
@@ -41,7 +34,10 @@ public class LoginService {
                            String name, String sex) {
         if (loginRegMapper.queryUserByName(username) != null) {
             return "用户名重复，请重新输入";
-        } else {
+        }else if(username==""||password==""||name==""){
+            return "请输入用户名，密码以及姓名";
+        }
+        else {
             User user = new User(username, password,"患者");
             Patient patient = new Patient(username, name, sex);
             loginRegMapper.register(user);

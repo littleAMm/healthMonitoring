@@ -21,9 +21,14 @@
         where docpat.patient_id = #{id};
     </delete>
     <insert id="creatHealth" parameterType="com.hmbackend.bean.Health">
-        insert into hospital.health()
-        values ();
+        insert into hospital.health(patient_id, tmep, status)
+        values (#{patientId},#{temp},#{status});
     </insert>
 
+    <update id="updateHeath">
+        update hospital.health
+            set health.tmep = #{temp},health.status = #{status}
+        where health.patient_id = #{patientId};
+    </update>
 
 </mapper>

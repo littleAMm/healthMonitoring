@@ -4,14 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author_name:xiatao
+ * @data:2022/4/14
+ * @time:13:56
+ */
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Health {
+@NoArgsConstructor
+public class DocPat {
+    private int doctorId;
     private int patientId;
-    private double temp;
-    //体温
-    private String status;
-    //标志位，用来判读是否健康
 }
