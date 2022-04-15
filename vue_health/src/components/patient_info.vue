@@ -17,21 +17,21 @@
             <i class="el-icon-mobile-phone"></i>
             手机号
           </template>
-          {{ phoneNumber }}
+          {{ id }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-location-outline"></i>
             居住地
           </template>
-          {{ localAddress }}
+          {{ username }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-office-building"></i>
             联系地址
           </template>
-          {{ detailedAddress }}
+          {{ sex }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import {getRequest} from "@/utils/api";
+import {postRequest} from "@/utils/api";
 
 export default {
   name: "patient_info",
@@ -94,9 +94,13 @@ export default {
     },
     loadPatient() {
       let _this = this
-      getRequest('/patient/info', ).then(resp => {
-        console.log('=======>' + resp.data)
-        _this.name = resp.data.name;
+      let localUsername = _this.$root.username
+      postRequest('/patient/info', {username:localUsername} ).then(resp => {
+        this.name = resp.data.name;
+        this.id = resp.data.id;
+        _this.$root.id = this.id;
+        this.username = resp.data.username;
+        this.sex = resp.data.sex;
       })
     }
   },
@@ -108,10 +112,10 @@ export default {
       count: 0,
       watch: true,
       amend: false,
-      name: "大狗贼！",
-      phoneNumber: "1234554321",
-      localAddress: "珞珈山",
-      detailedAddress: "大梧桐树上梧桐絮梧桐树下我喘气",
+      name: "",
+      id: "",
+      username: "",
+      sex: "",
       symptom: "吃不下睡不着爱喝奶茶可乐方便面",
       formLabelAlign: {
         name: '',

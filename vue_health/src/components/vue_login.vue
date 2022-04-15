@@ -70,7 +70,8 @@ export default {
         if (resp.data==='管理员'){
           _this.$alert(resp.data)
         }else if(resp.data==='患者'){
-          _this.$router.replace({path:'/patient'})
+          _this.$router.replace({path:'/patient'});
+          _this.$root.username=this.loginForm.username;
         }else if(resp.data==='医生'){
           _this.$alert(resp.data)
         }else{
