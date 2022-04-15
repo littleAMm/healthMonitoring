@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 @Data
 @NoArgsConstructor
@@ -14,11 +16,15 @@ public class Doctor{
     private String name;
     private String sex;
     private String work;
+    private List<Patient> patients;
 
     public Doctor(String username, String name, String sex, String work) {
         this.username = username;
         this.name = name;
         this.sex = sex;
         this.work = work;
+    }
+    public int getId() {
+        return id;
     }
 }
