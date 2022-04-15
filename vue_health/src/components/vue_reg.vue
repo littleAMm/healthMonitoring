@@ -4,8 +4,9 @@
       class="login-container"
       label-position="left"
       label-width="0px"
+      v-loading="loading"
   >
-    <h3 class="login_title">系统登录</h3>
+    <h3 class="login_title">患者注册</h3>
     <el-form-item prop="account">
       <el-input
           type="text"
@@ -22,27 +23,41 @@
           placeholder="密码"
       ></el-input>
     </el-form-item>
-    <el-checkbox class="login_remember" v-model="checked" label-position="left"
-    >记住密码
-    </el-checkbox
-    >
+    <el-form-item prop="checkName">
+      <el-input
+          type="text"
+          v-model="loginForm.name"
+          auto-complete="off"
+          placeholder="姓名"
+      ></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-radio-group v-model="loginForm.sex">
+        <el-radio
+            label="男"
+        ></el-radio>
+        <el-radio
+            label="女"
+        ></el-radio>
+      </el-radio-group>
+    </el-form-item>
     <el-form-item style="width: 100%">
       <el-button
           type="primary"
-          @click.native.prevent="regClick"
+          @click.native.prevent="submitClick"
           style="width: 40%"
       >注册
       </el-button>
       <el-button
           type="primary"
-          @click.native.prevent="loginClick"
+          @click.native.prevent="backClick"
           style="width: 40%"
       >登录
-      </el-button
-      >
+      </el-button>
     </el-form-item>
   </el-form>
 </template>
+
 <script>
 import {postRequest} from "../utils/api";
 
@@ -52,39 +67,41 @@ export default {
       rules: {
         account: [{required: true, message: "请输入用户名", trigger: "blur"}],
         checkPass: [{required: true, message: "请输入密码", trigger: "blur"}],
+        checkName: [{required: true, message: "请输入你的名字", trigger: "blur"}],
       },
       checked: true,
       loginForm: {
-        username: "pat001",
-        password: "123",
+        username: "",
+        password: "",
+        name: "",
+        sex: '男'
       }
     };
   },
   methods: {
-    loginClick: function () {
-      let _this = this;
-      postRequest("/login", {
+    submitClick: function () {
+      let _this = this
+      postRequest("/reg", {
         username: this.loginForm.username,
         password: this.loginForm.password,
-      }).then(resp=>{
-        if (resp.data==='管理员'){
-          _this.$alert(resp.data)
-        }else if(resp.data==='患者'){
-          _this.$router.replace({path:'/patient'})
-        }else if(resp.data==='医生'){
-          _this.$alert(resp.data)
-        }else{
+        name: this.loginForm.name,
+        sex: this.loginForm.sex
+      }).then(resp => {
+        if (resp.data === "注册成功") {
+          _this.$router.replace({path: '/'})
+        } else {
           _this.$alert(resp.data)
         }
       })
     },
-    regClick: function () {
-      this.$router.replace({path:'/reg'})
+    backClick() {
+      this.$router.replace({path:'/'})
     }
   },
 }
 </script>
-<style>
+
+<style scoped>
 .login-container {
   border-radius: 15px;
   background-clip: padding-box;
