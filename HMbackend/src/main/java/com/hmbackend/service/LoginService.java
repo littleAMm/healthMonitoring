@@ -8,12 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-/**
- * @author_name:xiatao
- * @data:2022/3/26
- * @time:19:12
- */
-
 @Service
 public class LoginService {
     @Autowired

@@ -3,12 +3,6 @@ package com.hmbackend.bean;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @author_name:xiatao
- * @data:2022/3/25
- * @time:20:00
- */
-
 @Data
 @NoArgsConstructor
 public class Patient{

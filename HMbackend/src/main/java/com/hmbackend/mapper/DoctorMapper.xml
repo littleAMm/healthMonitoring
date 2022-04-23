@@ -3,9 +3,37 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hmbackend.mapper.DoctorMapper">
-
-
-
-
-
+    <insert id="addPatient" parameterType="com.hmbackend.bean.Doctor">
+        insert into hospital.docpat(doctor_id,patient_id)
+        values (#{doctorId},#{patientId});
+    </insert>
+    <select id="queryAllPatient" resultType="com.hmbackend.bean.Patient">
+        select *
+        from hospital.docpat
+        where docpat.doctor_id = #{doctorId};
+    </select>
+    <select id="queryPatientById" resultType="com.hmbackend.bean.Patient">
+        select *
+        from hospital.patient
+        where patient.id = #{patientId};
+    </select>
+    <insert id="addRx" parameterType="com.hmbackend.bean.Rx">
+        insert into hospital.rx(patient_id, content)
+        values (#{patientId},#{content});
+    </insert>
+    <update id="changeIfm" parameterType="String">
+        update hospital.doctor
+        set doctor.username = #{doctor_username} ,doctor.name=#{doctor_name},doctor.sex=#{doctor_sex},doctor.work=#{doctor_work}
+        where doctor.Id = #{doctor_id};
+    </update>
+    <select id="checkIfm" resultType="com.hmbackend.bean.Doctor">
+        select *
+        from hospital.doctor
+        where doctor.id = #{doctorId};
+    </select>
+    <select id="queryDoctorById" resultType="com.hmbackend.bean.Doctor">
+        select *
+        from hospital.doctor
+        where id = #{id};
+    </select>
 </mapper>
