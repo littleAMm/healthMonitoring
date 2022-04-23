@@ -25,10 +25,21 @@
         values (#{patientId},#{temp},#{status});
     </insert>
 
-    <update id="updateHeath">
-        update hospital.health
-            set health.tmep = #{temp},health.status = #{status}
-        where health.patient_id = #{patientId};
+    <insert id="addHeathd" parameterType="com.hmbackend.bean.Health">
+        insert into hospital.health (patient_id, tmep, status, pulse, date)
+            values (#{patientId},#{temp},#{status},#{pulse},#{date});
+    </insert>
+
+    <update id="updatePatientInfo">
+        update hospital.patient
+            set patient.age = #{age}, patient.address = #{address}, patient.phone_number = #{phoneNumber}
+            where patient.id = #{patientId};
     </update>
+
+    <select id="queryDoctorId" resultType="com.hmbackend.bean.DocPat">
+        select *
+        from hospital.docpat
+        where hospital.docpat.patient_id = #{patientId};
+    </select>
 
 </mapper>

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 /**
  * @author_name:xiatao
  * @data:2022/4/1
@@ -17,7 +19,8 @@ import lombok.NoArgsConstructor;
 public class Health {
     private int patientId;
     private double temp;
-    //体温
+    private double pulse;
     private String status;
+    private Timestamp date;
     //标志位，用来判读是否健康
 }

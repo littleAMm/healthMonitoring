@@ -1,5 +1,6 @@
 package com.hmbackend.mapper;
 
+import com.hmbackend.bean.DocPat;
 import com.hmbackend.bean.Doctor;
 import com.hmbackend.bean.Patient;
 import com.hmbackend.bean.WorkTime;
@@ -29,6 +30,6 @@ public interface AdminMapper {
     int arrangeTime(WorkTime workTime);
     Doctor queryDoctorById(int id);
 
-    Doctor queryDoctorByUsername(@Param("username") String username);
-    Patient queryPatientByUsername(@Param("username") String username);
+    Doctor queryDoctorById(@Param("doctorID") String username);
+    List<DocPat> queryPatientByUsername(@Param("username") String username);
 }

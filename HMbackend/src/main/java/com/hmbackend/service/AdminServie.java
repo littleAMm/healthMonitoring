@@ -82,7 +82,9 @@ public class AdminServie {
     public boolean updatePwd(@Param("username") String username){
         if (adminMapper.updatePwd(username, "666666")!=0){
             return true;
-        }else return false;
+        }else {
+            return false;
+        }
     }
 
     public String  arrangeTime(int doctorId, Timestamp startTime,Timestamp endTime){

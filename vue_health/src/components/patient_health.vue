@@ -86,14 +86,12 @@ export default {
     },
     del:function(index){//删除
       this.lists.splice(index,1);//index位置 1个数
-
     },
     edit:function(){//编辑
       this.flag=true;
     },
     update:function(){//更新
       this.flag=false;
-
     }
   }
 }
