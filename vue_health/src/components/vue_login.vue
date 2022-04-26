@@ -1,4 +1,9 @@
 <template>
+<div>
+<router-link :to="{ path: '/patient' }">进入病人页</router-link>
+<router-link :to="{ path: '/doctor' }">进入医生页</router-link>
+<router-link :to="{ path: '/manager' }">进入管理员页</router-link>
+
   <el-form
       :rules="rules"
       class="login-container"
@@ -42,6 +47,7 @@
       >
     </el-form-item>
   </el-form>
+</div>
 </template>
 <script>
 import {postRequest} from "../utils/api";
@@ -62,22 +68,23 @@ export default {
   },
   methods: {
     loginClick: function () {
-      let _this = this;
-      postRequest("/login", {
-        username: this.loginForm.username,
-        password: this.loginForm.password,
-      }).then(resp=>{
-        if (resp.data==='管理员'){
-          _this.$alert(resp.data)
-        }else if(resp.data==='患者'){
-          _this.$router.replace({path:'/patient'});
-          _this.$root.username=this.loginForm.username;
-        }else if(resp.data==='医生'){
-          _this.$alert(resp.data)
-        }else{
-          _this.$alert(resp.data)
-        }
-      })
+      //let _this = this;
+      //postRequest("/login", {
+        //username: this.loginForm.username,
+        //password: this.loginForm.password,
+      //}).then(resp=>{
+        //if (resp.data==='管理员'){
+         // _this.$alert(resp.data)
+        //}else if(resp.data==='患者'){
+          this.$root.username=this.loginForm.username
+          this.$router.replace({path:'/doctor'})
+      //     this.$router.push('')
+      //   }else if(resp.data==='医生'){
+      //     _this.$alert(resp.data)
+      //   }else{
+      //     _this.$alert(resp.data)
+      //   }
+      // })
     },
     regClick: function () {
       this.$router.replace({path:'/reg'})
