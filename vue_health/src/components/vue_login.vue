@@ -73,7 +73,8 @@ export default {
           _this.$router.replace({path:'/patient'});
           _this.$root.username=this.loginForm.username;
         }else if(resp.data==='医生'){
-          _this.$alert(resp.data)
+          _this.$router.replace({path:'/doctor'});
+          _this.$root.username=this.loginForm.username;
         }else{
           _this.$alert(resp.data)
         }
