@@ -1,4 +1,9 @@
 <template>
+<div>
+<router-link :to="{ path: '/patient' }">进入病人页</router-link>
+<router-link :to="{ path: '/doctor' }">进入医生页</router-link>
+<router-link :to="{ path: '/manager' }">进入管理员页</router-link>
+
   <el-form
       :rules="rules"
       class="login-container"
@@ -42,6 +47,7 @@
       >
     </el-form-item>
   </el-form>
+</div>
 </template>
 <script>
 import {postRequest} from "../utils/api";
