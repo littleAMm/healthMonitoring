@@ -7,8 +7,8 @@
         insert into hospital.docpat(doctor_id,patient_id)
         values (#{doctorId},#{patientId});
     </insert>
-    <select id="queryAllPatient" resultType="com.hmbackend.bean.Patient">
-        select *
+    <select id="queryAllPatient" resultType="integer">
+        select docpat.patient_id
         from hospital.docpat
         where docpat.doctor_id = #{doctorId};
     </select>
@@ -21,7 +21,7 @@
         insert into hospital.rx(patient_id, content)
         values (#{patientId},#{content});
     </insert>
-    <update id="changeIfm" parameterType="String">
+    <update id="changeSelfIfm" parameterType="String">
         update hospital.doctor
         set doctor.username = #{doctor_username} ,doctor.name=#{doctor_name},doctor.sex=#{doctor_sex},doctor.work=#{doctor_work}
         where doctor.Id = #{doctor_id};
