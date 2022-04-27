@@ -33,13 +33,7 @@
           </template>
           {{ phoneNumber }}
         </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label">
-            <i class="el-icon-location-outline"></i>
-            居住地
-          </template>
-          {{ localAddress }}
-        </el-descriptions-item>
+
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-office-building"></i>
@@ -70,9 +64,7 @@
         <el-form-item label="手机号">
           <el-input v-model="phoneNumber"></el-input>
         </el-form-item>
-        <el-form-item label="居住地">
-          <el-input v-model="localAddress"></el-input>
-        </el-form-item>
+
         <el-form-item label="联系地址">
           <el-input v-model="detailedAddress"></el-input>
         </el-form-item>
@@ -133,7 +125,7 @@ export default {
       sex:"女",
       age:"uahuyuuywif9",
       phoneNumber: "1234554321",
-      localAddress: "珞珈山",
+
       detailedAddress: "大梧桐树上梧桐絮梧桐树下我喘气",
       office: "脑科",
 
