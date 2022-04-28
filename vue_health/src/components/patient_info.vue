@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import {getRequest} from "@/utils/api";
+import {postRequest} from "@/utils/api";
 
 export default {
   name: "patient_info",
@@ -97,9 +97,13 @@ export default {
     },
     loadPatient() {
       let _this = this
-      getRequest('/patient/info', ).then(resp => {
-        console.log('=======>' + resp.data)
-        _this.name = resp.data.name;
+      let localUsername = _this.$root.username
+      postRequest('/patient/info', {username:localUsername} ).then(resp => {
+        this.name = resp.data.name;
+        _this.$root.id = resp.data.id;
+        this.username = resp.data.username;
+        this.sex = resp.data.sex;
+        this.phoneNumber= _this.$root.id;
       })
     }
   },
@@ -116,7 +120,7 @@ export default {
       age:"",
       phoneNumber: "",
       detailedAddress: "",
-      symptom: "",
+      symptom: "vds",
       formLabelAlign: {
         name: '',
         region: '',

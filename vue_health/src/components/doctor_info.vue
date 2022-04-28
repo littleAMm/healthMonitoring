@@ -88,7 +88,7 @@
 </template>
 
 <script>
-//import {getRequest} from "@/utils/api";
+import {postRequest} from "@/utils/api";
 
 export default {
   name: "doctor_info",
@@ -112,17 +112,24 @@ export default {
   //           }
   //         });
   //   },
-  //   loadPatient() {
-  //     let _this = this
-  //     getRequest('/patient/info', ).then(resp => {
-  //       console.log('=======>' + resp.data)
-  //       _this.name = resp.data.name;
-  //     })
-  //   }
-  // },
-  // mounted() {
-  //   this.loadPatient()
-  // },
+    loadDoctor() {
+      let _this = this
+      let localUsername = _this.$root.username
+      postRequest('/doctor/checkDoctorInfo',{username:localUsername}).then(resp => {
+        console.log('=======>' + resp.data)
+        this.name = resp.data.name;
+        _this.$root.id = resp.data.id;
+        this.username = resp.data.username;
+        this.sex = resp.data.sex;
+        this.phoneNumber=resp.data.phone_number;
+        this.office=resp.data.work;
+        this.age=resp.data.age;
+        this.localAddress=resp.data.address;
+      })
+    }
+  },
+  mounted() {
+    this.loadDoctor()
   },
   data() {
     return {
@@ -130,13 +137,12 @@ export default {
       watch: true,
       amend: false,
       name: this.$root.username,
-      sex:"女",
-      age:"uahuyuuywif9",
-      phoneNumber: "1234554321",
-      localAddress: "珞珈山",
-      detailedAddress: "大梧桐树上梧桐絮梧桐树下我喘气",
-      office: "脑科",
-
+      sex:"",
+      age:"",
+      phoneNumber: "",
+      localAddress: "",
+      detailedAddress: "",
+      office: "",
     }
   }
 }

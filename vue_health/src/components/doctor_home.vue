@@ -4,10 +4,10 @@
       <doctor_info/>
     </el-tab-pane>
     <el-tab-pane label="我的病人" name="second">
-      <doctor_patient/>
+      <doctor_patient ref="patient"/>
     </el-tab-pane>
     <el-tab-pane label="消息中心" name="third">
-      <doctor_message/>
+      <doctor_message ref="message"/>
     </el-tab-pane>
   </el-tabs>
 </template>
@@ -27,9 +27,11 @@ export default {
       }
       if (e.name == 'second') {
         this.$router.replace({path: '/doctor/patient'});
+        this.$refs.patient.loadPatient()
       }
       if (e.name == 'third') {
         this.$router.replace({path: '/doctor/message'});
+        //this.$refs.message;
       }
       // if (e.name == 'fourth') {
       //   this.$router.replace({name: 'MessageCenter'});

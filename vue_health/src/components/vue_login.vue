@@ -61,8 +61,8 @@ export default {
       },
       checked: true,
       loginForm: {
-        username: "pat001",
-        password: "123",
+        username: "医生3",
+        password: "123456",
       }
     };
   },

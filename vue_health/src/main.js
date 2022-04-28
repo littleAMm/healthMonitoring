@@ -13,7 +13,7 @@ new Vue({
   data(){
     return{
       username:'',
-      id:''
+      id:1
     }
   }
 }).$mount('#app')
