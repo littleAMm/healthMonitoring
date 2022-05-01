@@ -4,9 +4,9 @@
 
 <!--以上全删，然后给下面配置v-for循坏-->
 
-<el-card class="box-card" shadow="hover" v-for="(pa,index) in patientList" :key="index">
+<el-card class="box-card" shadow="hover" v-for="(patient,index) in patients" :key="index">
   <div slot="header" class="clearfix">
-    <span>{{pa.name}}</span>
+    <span>{{patient.name}}</span>
     <!--开处方弹窗-->
     <el-popover
   placement="right"
@@ -23,7 +23,7 @@
         <el-form-item label="处方">
            <el-input type="textarea" v-model="doctorWords.prescription"></el-input>
         </el-form-item>
-        <el-button type="primary" plain style="float: right" @click="chakanchufang=true,bianjichufang=false,querenchufangchuangeihouduan(id)" >确认</el-button>
+        <el-button type="primary" plain style="float: right" @click="chakanchufang=true,bianjichufang=false,makeSureRx(patient.id,doctorWords.diagnose,doctorWords.prescription)" >确认</el-button>
 
       </el-form>
     </div>
@@ -35,21 +35,21 @@
             <i class="el-icon-user"></i>
             姓名
           </template>
-          {{ patientBasic.name }}
+          {{ patient.name }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-male"></i>/<i class="el-icon-female"></i>
             性别
           </template>
-          {{ patientBasic.sex }}
+          {{ patient.sex }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-thumb"></i>
             年龄
           </template>
-          {{ patientBasic.age }}
+          {{ patient.age }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
@@ -78,9 +78,9 @@
   </div>
   <div  class="text item" style="text-align:left">
     <!--{{'列表内容 ' + o }}-->
-    年龄：{{patientBasic.age}}<br>
-    性别：{{patientBasic.sex}}<br>
-    症状：{{patientBasic.symptom}}<br>
+    年龄：{{patient.age}}<br>
+    性别：{{patient.sex}}<br>
+    症状：{{patient.symptom}}<br>
     <!--查看详情弹窗-->
         <el-popover
   placement="right"
@@ -92,28 +92,28 @@
             <i class="el-icon-user"></i>
             姓名
           </template>
-          {{ patientBasic.name }}
+          {{ patient.name }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-male"></i>/<i class="el-icon-female"></i>
             性别
           </template>
-          {{ patientBasic.sex }}
+          {{ patient.sex }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-thumb"></i>
             年龄
           </template>
-          {{ patientBasic.age }}
+          {{ patient.age }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-mobile-phone"></i>
             手机号
           </template>
-          {{ patientBasic.phoneNumber }}
+          {{ patient.phone_number }}
         </el-descriptions-item>
 
         <el-descriptions-item>
@@ -121,14 +121,14 @@
             <i class="el-icon-office-building"></i>
             联系地址
           </template>
-          {{ patientBasic.detailedAddress }}
+          {{ patient.address }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-tickets"></i>
             病症
           </template>
-          {{ patientBasic.symptom }}
+          {{ patient.symptom }}
         </el-descriptions-item>
       </el-descriptions>
   <el-button style="float: right; padding: 3px 0" slot="reference" type="text">查看详情</el-button>
@@ -141,43 +141,66 @@
 </template>
 
 <script>
-
+import {getRequest, postRequest} from "@/utils/api";
 
 export default {
   name: "doctor_patient",
+  watch:{
+    id(){
 
+    },
+  },
   data() {
     return {
-      patientBasic: {
-        name:'病人1号',
-        age: '25',
-        sex: '女',
-        symptom: '睡不着觉',
-        phoneNumber:'sauihduagfeydn',
-        localAddress:'湖北省',
-        detailedAddress:'asuuabbanddiancuhn',
-        symptom:'喝不下三杯摇摇奶昔'
+      // patientBasic: {
+      //   name: '',
+      //   age: '',
+      //   sex: '',
+      //   phoneNumber: '',
+      //   localAddress: '',
+      //   detailedAddress: '',
+      //   symptom: '',
+      // },
+      doctorWords: {
+        diagnose: '',
+        prescription: ''
       },
-      doctorWords:{
-        diagnose:'',
-        prescription:''
-      },
-      patientList:[
-        {name:"病人1",age:25,sex:"gb"},
-         {name:"病人2",age:25,sex:"gb"},
-          {name:"病人3",age:25,sex:"gb"}
-      ],
-      chakanchufang:true,
-      bianjichufang:false
-
+      patients: [],
+      chakanchufang: true,
+      bianjichufang: false,
     }
   },
+  // watch: {
+  //   id(val, oldVal) {
+  //     console.log("inputVal = " + val + " , oldValue = " + oldVal)
+  //   }
+  // },
+  //     {
+  //   username:'',
+  //   id:'',
+  //   name:'',
+  //   sex:'',
+  //   symptom:'',
+  //   age:'',
+  //   phone_number:'',
+  //   address:''
+  // }
   methods:{
-    querenchufangchuangeihouduan(id){
+    makeSureRx(id,diagnose,prescription){
+      let _this = this
+      postRequest('/doctor/creatRx',{patient_id:id,diagnose:diagnose,content:prescription}).then(resp=>{
+        if (resp.data=="ID错误，请检查"){_this.$alert(resp.data)}
+        else{_this.$alert(resp.data)}
 
-
+      })
+    },
+    loadPatient() {
+      let _this = this
+      getRequest('/doctor/allPatient?doctorId='+this.$root.id ).then(resp => {
+        _this.patients = resp.data;
+      })
     }
-  }
+  },
 }
 </script>
 

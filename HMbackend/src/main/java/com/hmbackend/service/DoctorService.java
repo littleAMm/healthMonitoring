@@ -4,11 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.hmbackend.bean.Doctor;
 import com.hmbackend.bean.Patient;
 import com.hmbackend.bean.Rx;
+import com.hmbackend.mapper.AdminMapper;
 import com.hmbackend.mapper.DoctorMapper;
 import com.hmbackend.mapper.PatientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,7 +19,8 @@ public class DoctorService {
     private DoctorMapper doctorMapper;
     @Autowired
     private PatientMapper patientMapper;
-
+    @Autowired
+    private AdminMapper adminMapper;
     //增加自己的患者，如果未注册返回
     public String addPatient(int doctorId,int patientId){
         if(patientMapper.queryPatientById(patientId)==null){
@@ -29,29 +32,28 @@ public class DoctorService {
     }
 
     //展示自己的患者
-    public String queryPatient(int doctorId){
-        String result = null;
-        try{
+    public List<Patient> queryPatient(int doctorId){
+            List<Patient>allPatient = new ArrayList<Patient>();
+        try {
             List<Integer> list = doctorMapper.queryAllPatient(doctorId);
-            List<Patient>allPatient = null;
             for (int s:list) {
-                allPatient.add(doctorMapper.queryPatientById(s));
+                Patient patient=doctorMapper.queryPatientById(s);
+                allPatient.add(patient);
             }
-            result = JSON.toJSONString(list);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return allPatient;
     }
 
     //为患者创建处方
-    public String creatRx(int patientId,String content){
+    public String creatRx(int patientId,String content,String diagnose){
         Patient patient = doctorMapper.queryPatientById(patientId);
         if (patient==null){
             return "ID错误，请检查";
         }else{
-            Rx rx=new Rx(patientId,content);
-            doctorMapper.addRx(rx);
+            Rx rx=new Rx(patientId,content,diagnose);
+            doctorMapper.addRx(rx.getPatientId(),rx.getContent(),rx.getDiagnose());
             return "创建成功";
         }
     }
@@ -88,12 +90,11 @@ public class DoctorService {
     }
 
     //查询个人信息
-    public String checkIfm(int doctorId){
-        if(doctorMapper.queryDoctorById(doctorId)==null){
-            return"此医生不存在";
+    public Doctor checkIfm(String username){
+        if(adminMapper.queryDoctorByUsername(username)==null){
+            return null;
         }else{
-            doctorMapper.checkIfm(doctorId);
-            return "成功";
+            return doctorMapper.checkIfm(username);
         }
     }
 }

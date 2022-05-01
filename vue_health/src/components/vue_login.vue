@@ -66,30 +66,30 @@ export default {
       },
       checked: true,
       loginForm: {
-        username: "pat001",
-        password: "123",
+        username: "医生3",
+        password: "123456",
       }
     };
   },
   methods: {
     loginClick: function () {
-      //let _this = this;
-      //postRequest("/login", {
-        //username: this.loginForm.username,
-        //password: this.loginForm.password,
-      //}).then(resp=>{
-        //if (resp.data==='管理员'){
-         // _this.$alert(resp.data)
-        //}else if(resp.data==='患者'){
-          this.$root.username=this.loginForm.username
-          this.$router.replace({path:'/doctor'})
-      //     this.$router.push('')
-      //   }else if(resp.data==='医生'){
-      //     _this.$alert(resp.data)
-      //   }else{
-      //     _this.$alert(resp.data)
-      //   }
-      // })
+      let _this = this;
+      postRequest("/login", {
+        username: this.loginForm.username,
+        password: this.loginForm.password,
+      }).then(resp=>{
+        if (resp.data==='管理员'){
+          _this.$alert(resp.data)
+        }else if(resp.data==='患者'){
+          _this.$router.replace({path:'/patient'});
+          _this.$root.username=this.loginForm.username;
+        }else if(resp.data==='医生'){
+          _this.$router.replace({path:'/doctor'});
+          _this.$root.username=this.loginForm.username;
+        }else{
+          _this.$alert(resp.data)
+        }
+      })
     },
     resetClick:function(){
       this.$router.replace({path:'/reset'})

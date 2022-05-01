@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Rx {
     private int patientId;
+    private String diagnose;
     private String content;//处方内容
 }

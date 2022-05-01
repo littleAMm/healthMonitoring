@@ -21,6 +21,4 @@ public class PatientController {
     Patient queryInfo(@RequestParam("username") String username){
         return patientService.queryPatientByUsername(username);
     }
-
-//    @GetMapping
 }

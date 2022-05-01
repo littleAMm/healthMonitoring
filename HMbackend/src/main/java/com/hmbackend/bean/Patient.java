@@ -11,6 +11,10 @@ public class Patient{
     private int id;
     private String name;
     private String sex;
+    private String age;
+    private String symptom;
+    private String phone_number;
+    private String address;
 
     public Patient(String username, String name, String sex) {
         this.username = username;
