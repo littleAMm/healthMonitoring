@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import {postRequest} from "@/utils/api";
+import {getRequest} from "@/utils/api";
 
 export default {
   name: "patient_info",
@@ -98,7 +98,7 @@ export default {
     loadPatient() {
       let _this = this
       let localUsername = _this.$root.username
-      postRequest('/patient/info', {username:localUsername} ).then(resp => {
+      getRequest('/patient/info/' + localUsername).then(resp => {
         this.name = resp.data.name;
         _this.$root.id = resp.data.id;
         this.username = resp.data.username;

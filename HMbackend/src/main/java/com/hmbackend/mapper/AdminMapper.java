@@ -29,6 +29,6 @@ public interface AdminMapper {
     int arrangeTime(WorkTime workTime);
     Doctor queryDoctorById(int id);
 
-    Doctor queryDoctorById(@Param("doctorID") String username);
+    Doctor queryDoctorByUsername(@Param("username") String username);
     List<DocPat> queryPatientByUsername(@Param("username") String username);
 }

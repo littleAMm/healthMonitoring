@@ -55,7 +55,7 @@
 </div>
 </template>
 <script>
-import {postRequest} from "../utils/api";
+import {getRequest} from "../utils/api";
 
 export default {
   data() {
@@ -74,19 +74,17 @@ export default {
   methods: {
     loginClick: function () {
       let _this = this;
-      postRequest("/login", {
-        username: this.loginForm.username,
-        password: this.loginForm.password,
-      }).then(resp=>{
-        if (resp.data==='管理员'){
+      getRequest("/login/" + this.loginForm.username + "/" + this.loginForm.password
+      ).then(resp => {
+        if (resp.data === '管理员') {
           _this.$alert(resp.data)
-        }else if(resp.data==='患者'){
-          _this.$router.replace({path:'/patient'});
-          _this.$root.username=this.loginForm.username;
-        }else if(resp.data==='医生'){
+        } else if (resp.data === '患者') {
+          _this.$router.replace({path: '/patient'});
+          _this.$root.username = this.loginForm.username;
+        } else if (resp.data === '医生') {
           _this.$router.replace({path:'/doctor'});
           _this.$root.username=this.loginForm.username;
-        }else{
+        } else {
           _this.$alert(resp.data)
         }
       })
@@ -95,7 +93,7 @@ export default {
       this.$router.replace({path:'/reset'})
     },
     regClick: function () {
-      this.$router.replace({path:'/reg'})
+      this.$router.replace({path: '/reg'})
     }
   },
 }

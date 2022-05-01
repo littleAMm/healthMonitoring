@@ -17,8 +17,8 @@ public class PatientController {
     @Autowired
     PatientService patientService;
 
-    @PostMapping("/info")
-    Patient queryInfo(@RequestParam("username") String username){
+    @PostMapping("/info/{username}")
+    Patient queryInfo(@PathVariable("username") String username){
         return patientService.queryPatientByUsername(username);
     }
 
