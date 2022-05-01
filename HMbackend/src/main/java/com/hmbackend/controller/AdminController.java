@@ -32,9 +32,9 @@ public class AdminController {
         return adminServie.queryAllDoctor();
     }
 
-    @GetMapping("/allPatientUnhealthy")
-    public String queryPatientUnhealthy() {
-        return adminServie.queryPatientUnhealthy();
+    @GetMapping("/allPatient")
+    public String queryPatient() {
+        return adminServie.queryPatient();
     }
 
     @PostMapping("/deleteDoctor")

@@ -25,7 +25,7 @@ public class PatientService {
     AdminMapper adminMapper;
 
     public Patient queryPatientByUsername(String username) {
-        return (Patient) adminMapper.queryPatientByUsername(username);
+        return adminMapper.queryPatientByUsername(username);
     }
 
     public boolean updateInfo(int id, int age, int phNum, String address) {

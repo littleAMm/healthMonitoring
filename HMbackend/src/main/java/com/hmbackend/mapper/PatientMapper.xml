@@ -25,7 +25,7 @@
         values (#{patientId},#{temp},#{status});
     </insert>
 
-    <insert id="addHeathd" parameterType="com.hmbackend.bean.Health">
+    <insert id="addHeath" parameterType="com.hmbackend.bean.Health">
         insert into hospital.health (patient_id, tmep, status, pulse, date)
             values (#{patientId},#{temp},#{status},#{pulse},#{date});
     </insert>

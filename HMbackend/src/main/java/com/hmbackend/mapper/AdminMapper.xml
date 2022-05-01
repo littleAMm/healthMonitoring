@@ -30,10 +30,9 @@
         where user.username = #{username};
     </update>
 
-    <select id="queryPatientUnhealthy" resultType="com.hmbackend.bean.Patient">
-        select _p.*
-        from hospital.patient _p, hospital.health _h
-        where _h.status = #{"差"} and _p.id = _h.patient_id;
+    <select id="queryPatient" resultType="com.hmbackend.bean.Patient">
+        select *
+        from hospital.patient;
     </select>
 
     <insert id="arrangeTime" parameterType="com.hmbackend.bean.WorkTime">

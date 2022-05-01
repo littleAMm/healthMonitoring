@@ -20,11 +20,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(list,index) in lists" :key="index">
+        <tr v-for="(health,index) in healthList" :key="index">
           <td>{{index+1}}</td>
-          <td>{{list.temp}}</td>
-          <td>{{list.pulse}}</td>
-          <td>{{list.dates}}</td>
+          <td>{{health.temp}}</td>
+          <td>{{health.pulse}}</td>
+          <td>{{health.dates}}</td>
           <td>
             <span class="delete" @click="del(index)">删除</span>
             <span class="edit" @click="edit(list)">编辑</span>
@@ -54,18 +54,23 @@
 </template>
 
 <script>
+import {postRequest} from "@/utils/api";
+
 export default {
   name: "patient_health",
   data () {
     return {
-      temp:'',
-      pulse:'',
-      dates:'',
+      health:{
+        temp:'',
+        pulse:'',
+        dates:'',
+      },
+      healthList:[],
       id:'',
 
       flag:false,//弹层的显示隐藏
       editDetail:{},//编辑内容
-      lists:[{temp:'37',pulse:'100',dates:'2022-4-11'}]
+
     }
   },
   methods:{
@@ -98,6 +103,16 @@ export default {
     },
     update:function(){//更新
       this.flag=false;
+    },
+
+
+    addHealth(){
+      let _this = this;
+      postRequest("/patient",{
+
+      })(resp=>{
+        _this.$alert(resp.data)
+      })
     }
   }
 }
@@ -181,7 +196,7 @@ export default {
 		bottom:0;
 		margin:auto;
 		z-index:47;
-		border-radius:Spx;
+		border-radius:8px;
 	}
 	.title{
 		padding:10px;

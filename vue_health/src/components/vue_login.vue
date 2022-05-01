@@ -66,8 +66,8 @@ export default {
       },
       checked: true,
       loginForm: {
-        username: "医生3",
-        password: "123456",
+        username: "admin",
+        password: "123",
       }
     };
   },
@@ -77,7 +77,8 @@ export default {
       getRequest("/login/" + this.loginForm.username + "/" + this.loginForm.password
       ).then(resp => {
         if (resp.data === '管理员') {
-          _this.$alert(resp.data)
+          _this.$router.replace({path: '/manager'});
+          _this.$root.username = this.loginForm.username;
         } else if (resp.data === '患者') {
           _this.$router.replace({path: '/patient'});
           _this.$root.username = this.loginForm.username;

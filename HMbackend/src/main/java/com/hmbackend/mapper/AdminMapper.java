@@ -21,7 +21,7 @@ public interface AdminMapper {
     int updatePwd(@Param("username") String username, @Param("password") String password);
 
     //查找患者健康状况为”差“的患者
-    List<Patient> queryPatientUnhealthy();
+    List<Patient> queryPatient();
 
     List<Doctor> queryAllDoctor();
 
@@ -30,5 +30,5 @@ public interface AdminMapper {
     Doctor queryDoctorById(int id);
 
     Doctor queryDoctorByUsername(@Param("username") String username);
-    List<DocPat> queryPatientByUsername(@Param("username") String username);
+    Patient queryPatientByUsername(@Param("username") String username);
 }

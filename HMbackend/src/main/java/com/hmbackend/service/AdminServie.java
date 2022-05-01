@@ -50,10 +50,10 @@ public class AdminServie {
         return result;
     }
 
-    public String queryPatientUnhealthy() {
+    public String queryPatient() {
         String result = null;
         try {
-            List<Patient> list = adminMapper.queryPatientUnhealthy();
+            List<Patient> list = adminMapper.queryPatient();
             result = JSON.toJSONString(list);
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,9 +70,9 @@ public class AdminServie {
         }
     }
 
-    public boolean deletePatient(@Param("username") String username) {
-        if (adminMapper.deleteUser(username) != 0
-                && adminMapper.deletePatient(username) != 0) {
+    public boolean deletePatient(@Param("id") String id) {
+        if (adminMapper.deleteUser(id) != 0
+                && adminMapper.deletePatient(id) != 0) {
             return true;
         } else {
             return false;
