@@ -51,10 +51,10 @@
 
           label="操作"
           width="100">
-        <template>
-          <el-button type="text" size="small" @click="deletePatient">删除</el-button>
-          <el-button type="text" size="small">编辑</el-button>
-          <el-button type="text" size="small">提醒医生</el-button>
+        <template #default="scope">
+          <el-button type="text" size="small" @click="handleClickDelete(scope.row)">删除</el-button>
+          <el-button type="text" size="small" @click="handleClickEdit(scope.row)">编辑</el-button>
+          <el-button type="text" size="small" @click="handleClickRemind(scope.row)">提醒医生</el-button>
         </template>
       </el-table-column>
 
@@ -76,21 +76,32 @@ export default {
 
   name: "manager_doctor",
   methods: {
-    deletePatient(){
-      postRequest("/admin/deletePatient",{
-        username:888
-      }).then(resp=>{
+    deletePatient(username) {
+      let _this = this;
+      postRequest("/admin/deletePatient", {
+        username: username
+      }).then(resp => {
         _this.$alert(resp.data)
       })
     },
-    add: function () {
-      this.flag = true;
-    },
     queryAllDoctors() {
       let _this = this;
-      getRequest("/admin/allPatient").then(resp=>{
+      getRequest("/admin/allPatient").then(resp => {
         _this.tableData = resp.data;
       })
+    },
+    handleClickDelete(row) {
+      this.deletePatient(row.username);
+      this.tableData = this.tableData.filter(patient => {
+            return patient.username !== row.username;
+          }
+      );
+    },
+    handleClickEdit(row) {
+      console.log(row)
+    },
+    handleClickRemind(row) {
+      console.log(row)
     }
   },
   mounted() {

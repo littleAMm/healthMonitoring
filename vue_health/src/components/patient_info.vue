@@ -109,11 +109,7 @@ export default {
         phoneNumber: _this.patientInfo.phoneNumber,
         address: _this.patientInfo.detailedAddress,
       }).then(resp => {
-        if(resp.data=='success'){
-          _this.$alert('success')
-        }else{
-          _this.$alert('error')
-        }
+        _this.$alert(resp.data)
       })
 
     }
