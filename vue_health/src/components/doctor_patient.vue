@@ -203,7 +203,7 @@ export default {
     width: 240px;
     margin: 20px;
     line-height:200%;
-    background-color:rgb(162, 196, 220);
+    background-color:rgb(183, 212, 233);
     /* opacity: 0.5 */
   }
 </style>

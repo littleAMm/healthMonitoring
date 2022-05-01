@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import vue_login from "@/components/vue_login";
 import vue_reg from "@/components/vue_reg";
+import vue_reset from "@/components/vue_reset";
 import patient_home from "@/components/patient_home";
 import patient_info from "@/components/patient_info";
 import patient_health from "@/components/patient_health";
@@ -29,6 +30,11 @@ export default new Router({
             path: '/reg',
             name: '注册',
             component: vue_reg
+        },
+        {
+            path: '/reset',
+            name: '修改密码',
+            component: vue_reset
         },
         {
             path: '/patient',
