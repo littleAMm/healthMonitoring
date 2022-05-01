@@ -112,20 +112,16 @@ export default {
   },
   data() {
     return {
-      count: 0,
       watch: true,
-      amend: false,
-      name: this.$root.username,
-      sex:"女",
-      age:"",
-      phoneNumber: "",
-      detailedAddress: "",
-      symptom: "vds",
-      formLabelAlign: {
-        name: '',
-        region: '',
-        type: ''
-      }
+            amend: false,
+            patientInfo:{
+            name: this.$root.username,
+            sex:"女",
+            age:"",
+            phoneNumber: "",
+            detailedAddress: "",
+            symptom: ""
+            }
     }
   }
 }

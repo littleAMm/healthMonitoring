@@ -10,7 +10,9 @@
       label-position="left"
       label-width="0px"
   >
+
     <h3 class="login_title">系统登录</h3>
+
     <el-form-item prop="account">
       <el-input
           type="text"
@@ -27,10 +29,13 @@
           placeholder="密码"
       ></el-input>
     </el-form-item>
-    <el-checkbox class="login_remember" v-model="checked" label-position="left"
+  <el-form-item>
+    <el-checkbox class="login_remember" v-model="checked" label-position="left" style="float: left"
     >记住密码
     </el-checkbox
     >
+    <el-button type="text" style="float: right" @click="resetClick()">修改密码</el-button>
+  </el-form-item>
     <el-form-item style="width: 100%">
       <el-button
           type="primary"
@@ -43,8 +48,8 @@
           @click.native.prevent="loginClick"
           style="width: 40%"
       >登录
-      </el-button
-      >
+      </el-button>
+
     </el-form-item>
   </el-form>
 </div>
@@ -86,6 +91,9 @@ export default {
         }
       })
     },
+    resetClick:function(){
+      this.$router.replace({path:'/reset'})
+    },
     regClick: function () {
       this.$router.replace({path:'/reg'})
     }
@@ -115,3 +123,4 @@ export default {
   text-align: left;
 }
 </style>
+
