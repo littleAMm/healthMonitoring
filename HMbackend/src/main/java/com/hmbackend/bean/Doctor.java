@@ -16,7 +16,10 @@ public class Doctor{
     private String name;
     private String sex;
     private String work;
-    private List<Patient> patients;
+    private String age;
+    private String phone_number;
+    private String address;
+   // private List<Patient> patients;
 
     public Doctor(String username, String name, String sex, String work) {
         this.username = username;

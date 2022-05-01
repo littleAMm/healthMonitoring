@@ -27,6 +27,9 @@ CREATE TABLE doctor(
                        name VARCHAR(20),
                        sex VARCHAR(1) DEFAULT '男'
                            CHECK(sex in ('男','女') ),
+                       age NUMERIC(3),
+                       phone_number NUMERIC(11),
+                       address VARCHAR(50),
                        work VARCHAR(200)
 )ENGINE=INNODB DEFAULT CHARSET=utf8 AUTO_INCREMENT=20221001;
 
@@ -39,6 +42,7 @@ CREATE TABLE user(
 CREATE TABLE rx(
                    patient_id INT(11),
                    content VARCHAR(200),
+                   diagnose VARCHAR(200),
                    PRIMARY KEY(patient_id,content)
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
 

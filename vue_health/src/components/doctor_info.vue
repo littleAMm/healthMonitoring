@@ -33,7 +33,7 @@
           </template>
           {{ phoneNumber }}
         </el-descriptions-item>
-        
+
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-office-building"></i>
@@ -44,26 +44,33 @@
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-tickets"></i>
-            病症
+            科室
           </template>
-          {{ symptom }}
+          {{ office }}
         </el-descriptions-item>
       </el-descriptions>
     </div>
     <div v-show="amend">
       <el-form :label-position="right" label-width="80px">
-        
+        <el-form-item label="姓名">
+          <el-input v-model="name"></el-input>
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-input v-model="sex"></el-input>
+        </el-form-item>
         <el-form-item label="年龄">
           <el-input v-model="age"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
           <el-input v-model="phoneNumber"></el-input>
         </el-form-item>
-        
+
         <el-form-item label="联系地址">
           <el-input v-model="detailedAddress"></el-input>
         </el-form-item>
-        
+        <el-form-item label="科室">
+          <el-input v-model="office"></el-input>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">立即修改</el-button>
         </el-form-item>
@@ -76,52 +83,58 @@
 import {postRequest} from "@/utils/api";
 
 export default {
-  name: "patient_info",
+  name: "doctor_info",
   methods: {
     open() {
       this.watch = false,
-          this.amend = true
-          
-    },
-    submitForm(formName) {
-      this.watch = true,
-          this.amend = false,
-          this.$refs[formName].validate((valid) => {
-            if (valid) {
-              alert('submit!');
-            } else {
-              console.log('error submit!!');
-              return false;
-            }
+          this.amend = true,
+          this.$alert('请修改你的信息', {
+            confirmButtonText: '确定',
           });
     },
-    loadPatient() {
+  //   submitForm(formName) {
+  //     this.watch = true,
+  //         this.amend = false,
+  //         this.$refs[formName].validate((valid) => {
+  //           if (valid) {
+  //             alert('submit!');
+  //           } else {
+  //             console.log('error submit!!');
+  //             return false;
+  //           }
+  //         });
+  //   },
+    loadDoctor() {
       let _this = this
       let localUsername = _this.$root.username
-      postRequest('/patient/info', {username:localUsername} ).then(resp => {
+      postRequest('/doctor/checkDoctorInfo',{username:localUsername}).then(resp => {
+        console.log('=======>' + resp.data)
         this.name = resp.data.name;
         _this.$root.id = resp.data.id;
         this.username = resp.data.username;
         this.sex = resp.data.sex;
-        this.phoneNumber= _this.$root.id;
+        this.phoneNumber=resp.data.phone_number;
+        this.office=resp.data.work;
+        this.age=resp.data.age;
+        this.localAddress=resp.data.address;
       })
     }
   },
   mounted() {
-    this.loadPatient()
+    this.loadDoctor()
   },
   data() {
     return {
+      count: 0,
       watch: true,
-            amend: false,
-            patientInfo:{
-            name: this.$root.username,
-            sex:"女",
-            age:"",
-            phoneNumber: "",
-            detailedAddress: "",
-            symptom: ""
-            }
+      amend: false,
+      name: this.$root.username,
+      sex:"",
+      age:"",
+      phoneNumber: "",
+      localAddress: "",
+      detailedAddress: "",
+      office: "",
     }
   }
 }

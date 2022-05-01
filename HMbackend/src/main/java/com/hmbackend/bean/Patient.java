@@ -11,6 +11,10 @@ public class Patient{
     private int id;
     private String name;
     private String sex;
+    private String age;
+    private String symptom;
+    private String phone_number;
+    private String address;
 
     //后续添加
     //症状（医生添加）
