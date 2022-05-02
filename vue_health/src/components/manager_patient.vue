@@ -27,7 +27,7 @@
           width="100">
       </el-table-column>
       <el-table-column
-          prop="phone"
+          prop="phoneNumber"
           label="电话"
           width="150">
       </el-table-column>
@@ -48,32 +48,42 @@
       </el-table-column>
 
       <el-table-column
-
           label="操作"
           width="100">
         <template #default="scope">
           <el-button type="text" size="small" @click="handleClickDelete(scope.row)">删除</el-button>
-          <el-button type="text" size="small" @click="handleClickEdit(scope.row)">编辑</el-button>
+          <el-popover
+              placement="right"
+              width="400"
+              trigger="click">
+            <el-form :label-position="right" label-width="80px">
+              <el-form-item label="年龄">
+                <el-input v-model="editTable.age"></el-input>
+              </el-form-item>
+              <el-form-item label="电话">
+                <el-input v-model="editTable.phone"></el-input>
+              </el-form-item>
+              <el-form-item label="联系地址">
+                <el-input v-model="editTable.address"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="updateInfo(scope.row)">立即修改</el-button>
+              </el-form-item>
+            </el-form>
+            <el-button type="text" size="small" slot="reference">编辑</el-button>
+          </el-popover>
           <el-button type="text" size="small" @click="handleClickRemind(scope.row)">提醒医生</el-button>
         </template>
       </el-table-column>
-
     </el-table>
-
-
   </div>
-  <!-- </el-main>
-  </el-container> -->
 </template>
 
 
 <script>
-
-
 import {getRequest, postRequest} from "@/utils/api";
 
 export default {
-
   name: "manager_doctor",
   methods: {
     deletePatient(username) {
@@ -84,7 +94,7 @@ export default {
         _this.$alert(resp.data)
       })
     },
-    queryAllDoctors() {
+    queryAllPatients() {
       let _this = this;
       getRequest("/admin/allPatient").then(resp => {
         _this.tableData = resp.data;
@@ -97,21 +107,36 @@ export default {
           }
       );
     },
-    handleClickEdit(row) {
-      console.log(row)
+    updateInfo(row) {
+      let _this = this;
+      console.log(row.age)
+      console.log(typeof (row.age * 1))
+      postRequest("/admin/updatePatient", {
+        username: row.username,
+        age: _this.editTable.age,
+        phoneNumber: _this.editTable.phone,
+        address: _this.editTable.address
+      }).then(resp => {
+        _this.$alert(resp.data)
+      })
     },
     handleClickRemind(row) {
       console.log(row)
     }
   },
   mounted() {
-    this.queryAllDoctors();
+    this.queryAllPatients();
   },
 
   data() {
     return {
       flag: false,
-      tableData: []
+      tableData: [],
+      editTable:{
+        age:'',
+        phone:'',
+        address:''
+      }
     }
   }
 }

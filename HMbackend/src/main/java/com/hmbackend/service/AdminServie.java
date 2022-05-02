@@ -78,10 +78,18 @@ public class AdminServie {
         }
     }
 
-    public boolean updatePwd(@Param("username") String username){
-        if (adminMapper.updatePwd(username, "666666")!=0){
+    public boolean updatePwd(@Param("username") String username) {
+        if (adminMapper.updatePwd(username, "666666") != 0) {
             return true;
-        }else {
+        } else {
+            return false;
+        }
+    }
+
+    public boolean updatePatient(String username, int age, int phone, String address) {
+        if (adminMapper.updatePatient(username, age, phone, address) != 0) {
+            return true;
+        } else {
             return false;
         }
     }

@@ -30,12 +30,34 @@
         where user.username = #{username};
     </update>
 
-    <select id="queryPatient" resultType="com.hmbackend.bean.Patient">
+    <resultMap id="patient" type="com.hmbackend.bean.Patient">
+        <id column="id" property="id"/>
+        <id column="username" property="username"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="symptom" property="symptom"/>
+        <result column="age" property="age"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="address" property="address"/>
+    </resultMap>
+
+    <select id="queryPatient" resultMap="patient">
         select *
         from hospital.patient;
     </select>
 
-    <select id="queryAllDoctor" resultType="com.hmbackend.bean.Doctor">
+    <resultMap id="doctor" type="com.hmbackend.bean.Doctor">
+        <id column="id" property="id"/>
+        <id column="username" property="username"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="address" property="address"/>
+        <result column="work" property="work"/>
+    </resultMap>
+
+    <select id="queryAllDoctor" resultMap="doctor">
         select *
         from hospital.doctor;
     </select>
@@ -56,4 +78,10 @@
         from hospital.doctor
         where id = #{id};
     </select>
+
+    <update id="updatePatient">
+        update hospital.patient
+            set patient.age = #{age} , patient.phone_number = #{phone}, patient.address = #{address}
+        where patient.username = #{username};
+    </update>
 </mapper>

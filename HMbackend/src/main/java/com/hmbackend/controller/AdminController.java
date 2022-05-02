@@ -63,4 +63,16 @@ public class AdminController {
             return "修改失败";
         }
     }
+
+    @PostMapping("/updatePatient")
+    public String updatePatient(@RequestParam("username")String username,
+                                @RequestParam("age")int age,
+                                @RequestParam("phoneNumber")int phone,
+                                @RequestParam("address")String address){
+        if(adminServie.updatePatient(username, age, phone, address)){
+            return "success";
+        }else {
+            return "error";
+        }
+    }
 }

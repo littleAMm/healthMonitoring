@@ -18,6 +18,8 @@ public interface AdminMapper {
     //忘记密码后进行重置密码(密码默认重置666666)
     int updatePwd(@Param("username") String username, @Param("password") String password);
 
+    int updatePatient(@Param("username")String username,@Param("age")int age,@Param("phone")int phone,@Param("address")String address);
+
     //查找患者健康状况为”差“的患者
     List<Patient> queryPatient();
 

@@ -38,7 +38,16 @@
         where docpat.patient_id = #{patientId};
     </select>
 
-    <select id="queryAllHealth" resultType="com.hmbackend.bean.Health">
+    <resultMap id="health" type="com.hmbackend.bean.Health">
+        <id column="patient_id" property="patientId"/>
+        <id column="table_index" property="tableIndex"/>
+        <result column="tmep" property="temp"/>
+        <result column="status" property="status"/>
+        <result column="pulse" property="pulse"/>
+        <result column="date" property="date"/>
+    </resultMap>
+    
+    <select id="queryAllHealth" resultMap="health">
         select *
         from hospital.health;
     </select>
