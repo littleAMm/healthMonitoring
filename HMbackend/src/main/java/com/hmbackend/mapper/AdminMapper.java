@@ -1,9 +1,7 @@
 package com.hmbackend.mapper;
 
-import com.hmbackend.bean.DocPat;
 import com.hmbackend.bean.Doctor;
 import com.hmbackend.bean.Patient;
-import com.hmbackend.bean.WorkTime;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -25,8 +23,6 @@ public interface AdminMapper {
 
     List<Doctor> queryAllDoctor();
 
-    //为医生排班
-    int arrangeTime(WorkTime workTime);
     Doctor queryDoctorById(int id);
 
     Doctor queryDoctorByUsername(@Param("username") String username);

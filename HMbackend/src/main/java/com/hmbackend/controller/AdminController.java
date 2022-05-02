@@ -4,9 +4,6 @@ import com.hmbackend.service.AdminServie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Timestamp;
-
 /**
  * @author_name:xiatao
  * @data:2022/3/26
@@ -62,12 +59,5 @@ public class AdminController {
     public String updatePwd(@RequestParam("username") String username) {
         if (adminServie.updatePwd(username)) return "修改成功";
         else return "修改失败";
-    }
-
-    @PostMapping("/arrangeTime")
-    public String arrangeTime(@RequestParam("doctorId") int doctorId,
-                              @RequestParam("startTime") Timestamp startTime,
-                              @RequestParam("endTime") Timestamp endTime) {
-        return adminServie.arrangeTime(doctorId, startTime, endTime);
     }
 }

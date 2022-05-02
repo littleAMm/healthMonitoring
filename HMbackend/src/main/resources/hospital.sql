@@ -4,8 +4,6 @@ DROP TABLE IF EXISTS rx;
 DROP TABLE IF EXISTS docpat;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS health;
-DROP TABLE IF EXISTS worktime;
-
 SET GLOBAL time_zone = '+8:00';
 
 CREATE TABLE patient(
@@ -30,7 +28,8 @@ CREATE TABLE doctor(
                        age NUMERIC(3),
                        phone_number NUMERIC(11),
                        address VARCHAR(50),
-                       work VARCHAR(200)
+                       work VARCHAR(200)，
+                           work_time VARCHAR(30)
 )ENGINE=INNODB DEFAULT CHARSET=utf8 AUTO_INCREMENT=20221001;
 
 CREATE TABLE user(
@@ -42,7 +41,6 @@ CREATE TABLE user(
 CREATE TABLE rx(
                    patient_id INT(11),
                    content VARCHAR(200),
-                   diagnose VARCHAR(200),
                    PRIMARY KEY(patient_id,content)
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
 
@@ -62,9 +60,3 @@ CREATE TABLE health(
                        PRIMARY KEY(patient_id,table_index),
                        CHECK(status in ('健康','良好','差'))
 )ENGINE=INNODB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-
-CREATE TABLE worktime(
-                         doctor_id INT(11) PRIMARY KEY,
-                         start_time TIMESTAMP,
-                         end_time TIMESTAMP
-)ENGINE=INNODB DEFAULT CHARSET=utf8;

@@ -10,7 +10,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -84,17 +83,6 @@ public class AdminServie {
             return true;
         }else {
             return false;
-        }
-    }
-
-    public String  arrangeTime(int doctorId, Timestamp startTime,Timestamp endTime){
-        Doctor doctor = adminMapper.queryDoctorById(doctorId);
-        if (doctor==null){
-            return "ID错误，请检查";
-        }else if(startTime.before(endTime)){
-            return "安排成功";
-        }else {
-            return "开始时间必须在结束时间之前";
         }
     }
 }
