@@ -54,17 +54,17 @@
         :visible.sync="drawer"
         :with-header="false" size="60%">
       <div style="display: flex;justify-content: flex-start;flex-wrap: wrap;padding:10px;">
-        <el-card class="box-card">
+
+        <el-card class="box-card" v-for="(doctor,index) in doctorList" :key="index">
           <div slot="header" class="clearfix">
-            <span>{{ doctorInfo.name }}</span>
-            <el-button style="float: right; padding: 3px 0" type="text" @click="select()">选择</el-button>
+            <span>{{ doctor.name }}</span>
+            <el-button style="float: right; padding: 3px 0" type="text" @click="select(doctor.id)">选择</el-button>
             <!--这里button加从数据库调信息的方法-->
           </div>
           <div class="text item" style="text-align:left">
-
-            年龄：{{ doctorInfo.age }}<br>
-            性别：{{ doctorInfo.sex }}<br>
-            科室：{{ doctorInfo.office }}<br>
+            ID：{{ doctor.id }}<br>
+            性别：{{ doctor.sex }}<br>
+            科室：{{ doctor.work }}<br>
             <!--查看详情弹窗-->
             <el-popover
                 placement="right"
@@ -76,28 +76,28 @@
                     <i class="el-icon-user"></i>
                     姓名
                   </template>
-                  {{ doctorInfo.name }}
+                  {{ doctor.name }}
                 </el-descriptions-item>
                 <el-descriptions-item>
                   <template slot="label">
                     <i class="el-icon-male"></i>/<i class="el-icon-female"></i>
                     性别
                   </template>
-                  {{ doctorInfo.sex }}
+                  {{ doctor.sex }}
                 </el-descriptions-item>
                 <el-descriptions-item>
                   <template slot="label">
                     <i class="el-icon-thumb"></i>
                     年龄
                   </template>
-                  {{ doctorInfo.age }}
+                  {{ doctor.age }}
                 </el-descriptions-item>
                 <el-descriptions-item>
                   <template slot="label">
                     <i class="el-icon-mobile-phone"></i>
                     手机号
                   </template>
-                  {{ doctorInfo.phoneNumber }}
+                  {{ doctor.phoneNumber }}
                 </el-descriptions-item>
 
                 <el-descriptions-item>
@@ -105,161 +105,20 @@
                     <i class="el-icon-office-building"></i>
                     联系地址
                   </template>
-                  {{ doctorInfo.address }}
+                  {{ doctor.address }}
                 </el-descriptions-item>
                 <el-descriptions-item>
                   <template slot="label">
                     <i class="el-icon-tickets"></i>
                     科室
                   </template>
-                  {{ doctorInfo.office }}
+                  {{ doctor.work }}
                 </el-descriptions-item>
               </el-descriptions>
               <el-button style="float: right; padding: 3px 0" slot="reference" type="text">查看详情</el-button>
             </el-popover>
           </div>
         </el-card>
-
-        <!--通过数据库添加v-for循环，以下card全删-->
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-          </div>
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
-
-        <!--够了够了！！！！！!！！！别删超过这条线-->
-
-
       </div>
     </el-drawer>
   </div>
@@ -279,28 +138,39 @@ export default {
         age: '',
         phoneNumber: '',
         address: '',
-        office: '',
+        work: '',
         id: 1,
       },
       doctorList: []
     };
   },
   methods: {
-    select: function () {
+    //选择医生
+    select(doctorId) {
       let _this = this;
       postRequest("/patient/addDoctor", {
-        doctorId: _this.doctorInfo.id,
+        doctorId: doctorId,
         patientId: _this.$root.id
       }).then(resp => {
         _this.$alert(resp.data)
-      })
+      });
     },
+    //查询所有医生
     queryAllDoctors() {
       let _this = this;
       getRequest("/patient/allDoctors").then(resp => {
         _this.doctorList = resp.data;
       })
     },
+    //查询已经选择的医生
+    querySelectedDoctor() {
+      let _this = this;
+      getRequest("/patient/selectedDoctor/" + _this.$root.id).then(resp => {
+        _this.doctorInfo.name = resp.data.name;
+        _this.doctorInfo.sex = resp.data.sex;
+        _this.doctorInfo.work = resp.data.work;
+      })
+    }
   }
 }
 </script>

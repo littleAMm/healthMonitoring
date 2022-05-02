@@ -2,6 +2,7 @@ package com.hmbackend.service;
 
 import com.hmbackend.bean.DocPat;
 import com.hmbackend.bean.Doctor;
+import com.hmbackend.bean.Health;
 import com.hmbackend.bean.Patient;
 import com.hmbackend.mapper.AdminMapper;
 import com.hmbackend.mapper.PatientMapper;
@@ -36,32 +37,41 @@ public class PatientService {
         }
     }
 
-    public boolean addHealth(int id, String status, double temp, double pulse, Timestamp date){
-        if(patientMapper.addHeath(id, status, temp, pulse, date)!=0){
+    public boolean addHealth(int id, String status, double temp, double pulse, String date) {
+        if (patientMapper.addHeath(id, status, temp, pulse, date) != 0) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
-    public List<Doctor> queryDoctorSelected(int id){
-        List<DocPat> docPats = patientMapper.queryDoctorId(id);
-        List<Doctor> doctors = new ArrayList<Doctor>();
-        for(DocPat doc : docPats){
-            Doctor doctor = adminMapper.queryDoctorById(doc.getDoctorId());
-            doctors.add(doctor);
-        }
-        return doctors;
+    public Doctor queryDoctorSelected(int id) {
+        DocPat docPat = patientMapper.queryDoctorId(id);
+        Doctor doctor = patientMapper.queryDoctorById(docPat.getDoctorId());
+        return doctor;
     }
 
-    public boolean addDoctor(int docId,int patId){
-        if(patientMapper.addDoctor(docId,patId)!=0){
+    public boolean addDoctor(int docId, int patId) {
+        if (patientMapper.addDoctor(docId, patId) != 0) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
-    public List<Doctor> queryAllDoctor(){
+
+    public List<Doctor> queryAllDoctor() {
         return adminMapper.queryAllDoctor();
+    }
+
+    public List<Health> queryAllHealth() {
+        return patientMapper.queryAllHealth();
+    }
+
+    public boolean deleteHealth(int id, int index) {
+        if (patientMapper.deleteHealth(id, index) != 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

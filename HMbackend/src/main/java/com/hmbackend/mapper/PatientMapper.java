@@ -2,6 +2,7 @@ package com.hmbackend.mapper;
 
 import com.hmbackend.bean.DocPat;
 import com.hmbackend.bean.Doctor;
+import com.hmbackend.bean.Health;
 import com.hmbackend.bean.Patient;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -25,9 +26,13 @@ public interface PatientMapper {
 
     int deleteDoctor(@Param("id") int id);
 
-    int addHeath(@Param("patientId") int id, @Param("status") String status, @Param("temp") double temp, @Param("pulse") double pulse, @Param("date") Timestamp date);
+    int addHeath(@Param("patientId") int id, @Param("status") String status, @Param("temp") double temp, @Param("pulse") double pulse, @Param("date") String date);
 
     int updatePatientInfo(@Param("patientId") int id, @Param("age") int age, @Param("phoneNumber") int phNum, @Param("address") String address);
 
-    List<DocPat> queryDoctorId(@Param("patient") int id);
+    DocPat queryDoctorId(@Param("patientId") int patientId);
+
+    List<Health> queryAllHealth();
+
+    int deleteHealth(@Param("patientId") int patientId, @Param("tableIndex") int tableIndex);
 }

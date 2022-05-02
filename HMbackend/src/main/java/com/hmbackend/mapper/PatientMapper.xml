@@ -9,21 +9,17 @@
         values (#{doctorId},#{patientId});
     </insert>
     <!--根据用户id查询医生-->
-    <select id="queryDoctor" resultType="com.hmbackend.bean.Doctor">
+    <select id="queryDoctorById" resultType="com.hmbackend.bean.Doctor">
         select *
-        from hospital.docpat
-        where docpat.patient_id = #{patientId};
+        from hospital.doctor
+        where doctor.id = #{patientId};
     </select>
     <!--删除用户选中的医生-->
-    <delete id="deleteDoctor" parameterType="String">
+    <delete id="deleteDoctor">
         delete
         from hospital.docpat
         where docpat.patient_id = #{id};
     </delete>
-    <insert id="creatHealth" parameterType="com.hmbackend.bean.Health">
-        insert into hospital.health(patient_id, tmep, status)
-        values (#{patientId},#{temp},#{status});
-    </insert>
 
     <insert id="addHeath" parameterType="com.hmbackend.bean.Health">
         insert into hospital.health (patient_id, tmep, status, pulse, date)
@@ -39,7 +35,17 @@
     <select id="queryDoctorId" resultType="com.hmbackend.bean.DocPat">
         select *
         from hospital.docpat
-        where hospital.docpat.patient_id = #{patientId};
+        where docpat.patient_id = #{patientId};
     </select>
 
+    <select id="queryAllHealth" resultType="com.hmbackend.bean.Health">
+        select *
+        from hospital.health;
+    </select>
+
+    <delete id="deleteHealth">
+        delete
+        from hospital.health
+                 where health.patient_id = #{patientId} and health.table_index = #{tableIndex};
+    </delete>
 </mapper>

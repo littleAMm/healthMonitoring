@@ -57,7 +57,10 @@ public class AdminController {
     @PostMapping("/updatePwd")
     @Transactional
     public String updatePwd(@RequestParam("username") String username) {
-        if (adminServie.updatePwd(username)) return "修改成功";
-        else return "修改失败";
+        if (adminServie.updatePwd(username)) {
+            return "修改成功";
+        } else {
+            return "修改失败";
+        }
     }
 }

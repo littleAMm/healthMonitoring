@@ -1,6 +1,7 @@
 package com.hmbackend.controller;
 
 import com.hmbackend.bean.Doctor;
+import com.hmbackend.bean.Health;
 import com.hmbackend.bean.Patient;
 import com.hmbackend.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,11 +54,11 @@ public class PatientController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/addHealth")
     String addHealth(@RequestParam("id")int id,
                      @RequestParam("temp")double temp,
                      @RequestParam("pulse")double pulse,
-                     @RequestParam("date")Timestamp date){
+                     @RequestParam("date")String date){
         String status = null;
         if(temp>39&&pulse<70){
             status = "差";
@@ -69,5 +70,25 @@ public class PatientController {
         }else {
             return "error";
         }
+    }
+
+    @PostMapping("/deleteHealth")
+    String deleteHealth(@RequestParam("id")int id,
+                        @RequestParam("index")int index){
+        if(patientService.deleteHealth(id, index)){
+            return "success";
+        }else {
+            return "false";
+        }
+    }
+
+    @GetMapping("/selectedDoctor/{patientId}")
+    Doctor querySelectedDoctor(@PathVariable("patientId")int id){
+        return patientService.queryDoctorSelected(id);
+    }
+
+    @GetMapping("/allHealth")
+    List<Health> queryAllHealth(){
+        return patientService.queryAllHealth();
     }
 }
