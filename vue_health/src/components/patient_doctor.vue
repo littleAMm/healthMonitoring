@@ -9,28 +9,28 @@
           <i class="el-icon-user"></i>
           姓名
         </template>
-        {{ name }}
+        {{ doctorInfo.name }}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
           <i class="el-icon-male"></i>/<i class="el-icon-female"></i>
           性别
         </template>
-        {{ sex }}
+        {{ doctorInfo.sex }}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
           <i class="el-icon-thumb"></i>
           年龄
         </template>
-        {{ age }}
+        {{ doctorInfo.age }}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
           <i class="el-icon-mobile-phone"></i>
           手机号
         </template>
-        {{ phoneNumber }}
+        {{ doctorInfo.phoneNumber }}
       </el-descriptions-item>
 
       <el-descriptions-item>
@@ -38,14 +38,14 @@
           <i class="el-icon-office-building"></i>
           联系地址
         </template>
-        {{ detailedAddress }}
+        {{ doctorInfo.address }}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
           <i class="el-icon-tickets"></i>
           科室
         </template>
-        {{ office }}
+        {{ doctorInfo.work }}
       </el-descriptions-item>
     </el-descriptions>
 
@@ -133,13 +133,6 @@ export default {
     return {
       drawer: false,
       doctorInfo: {
-        name: '',
-        sex: '',
-        age: '',
-        phoneNumber: '',
-        address: '',
-        work: '',
-        id: 1,
       },
       doctorList: []
     };
@@ -166,9 +159,7 @@ export default {
     querySelectedDoctor() {
       let _this = this;
       getRequest("/patient/selectedDoctor/" + _this.$root.id).then(resp => {
-        _this.doctorInfo.name = resp.data.name;
-        _this.doctorInfo.sex = resp.data.sex;
-        _this.doctorInfo.work = resp.data.work;
+        _this.doctorInfo = resp.data;
       })
     }
   }

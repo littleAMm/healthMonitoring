@@ -9,12 +9,12 @@ SET GLOBAL time_zone = '+8:00';
 CREATE TABLE patient
 (
     username     VARCHAR(20) UNIQUE,
-    id           int(11) PRIMARY KEY AUTO_INCREMENT,
+    id           INT(11) PRIMARY KEY AUTO_INCREMENT,
     name         VARCHAR(20),
     sex          VARCHAR(1) DEFAULT '男',
     symptom      VARCHAR(200),
     age          NUMERIC(3),
-    phone_number NUMERIC(11),
+    phone_number INT(11),
     address      VARCHAR(50),
     CHECK (sex in ('男', '女') ),
     CHECK (age > 0 AND age < 150)
@@ -25,12 +25,12 @@ CREATE TABLE patient
 CREATE TABLE doctor
 (
     username     VARCHAR(20) UNIQUE,
-    id           int(11) PRIMARY KEY AUTO_INCREMENT,
+    id           INT(11) PRIMARY KEY AUTO_INCREMENT,
     name         VARCHAR(20),
     sex          VARCHAR(1) DEFAULT '男'
         CHECK (sex in ('男', '女') ),
     age          NUMERIC(3),
-    phone_number NUMERIC(11),
+    phone_number INT(11),
     address      VARCHAR(50),
     work         VARCHAR(200),
     work_time    VARCHAR(30)
@@ -66,10 +66,10 @@ CREATE TABLE health
 (
     patient_id  INT(11),
     table_index INT(3) UNIQUE AUTO_INCREMENT,
-    tmep        DOUBLE,
+    temp        DOUBLE,
     status      VARCHAR(2) DEFAULT '良好',
     pulse       DOUBLE,
-    date        TIMESTAMP  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    date        VARCHAR(20),
     PRIMARY KEY (patient_id, table_index),
     CHECK (status in ('健康', '良好', '差'))
 ) ENGINE = INNODB

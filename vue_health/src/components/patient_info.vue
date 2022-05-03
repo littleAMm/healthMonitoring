@@ -39,7 +39,7 @@
             <i class="el-icon-office-building"></i>
             联系地址
           </template>
-          {{ patientInfo.detailedAddress }}
+          {{ patientInfo.address }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
@@ -89,16 +89,16 @@ export default {
     },
     loadPatient() {
       let _this = this
-      let localUsername = _this.$root.username
-      getRequest('/patient/info/' + localUsername).then(resp => {
-        this.patientInfo.name = resp.data.name;
-        _this.$root.id = resp.data.id;
-        this.patientInfo.username = resp.data.username;
-        this.patientInfo.sex = resp.data.sex;
-        this.patientInfo.phoneNumber = resp.data.phoneNumber;
-        this.patientInfo.age = resp.data.age;
-        this.patientInfo.detailedAddress = resp.data.address;
-        this.patientInfo.symptom = resp.data.symptom;
+      getRequest('/patient/info/' + _this.$root.username).then(resp => {
+        // this.patientInfo.name = resp.data.name;
+        // _this.$root.id = resp.data.id;
+        // this.patientInfo.username = resp.data.username;
+        // this.patientInfo.sex = resp.data.sex;
+        // this.patientInfo.phoneNumber = resp.data.phoneNumber;
+        // this.patientInfo.age = resp.data.age;
+        // this.patientInfo.detailedAddress = resp.data.address;
+        // this.patientInfo.symptom = resp.data.symptom;
+        _this.patientInfo = resp.data;
       })
     },
     updateInfo() {
@@ -122,12 +122,6 @@ export default {
       watch: true,
       amend: false,
       patientInfo: {
-        name: this.$root.username,
-        sex: "女",
-        age: "",
-        phoneNumber: "",
-        detailedAddress: "",
-        symptom: ""
       }
     }
   }
