@@ -55,6 +55,7 @@
         <result column="phone_number" property="phoneNumber"/>
         <result column="address" property="address"/>
         <result column="work" property="work"/>
+        <result column="work_time" property="workTime"/>
     </resultMap>
 
     <select id="queryAllDoctor" resultMap="doctor">
@@ -83,5 +84,11 @@
         update hospital.patient
             set patient.age = #{age} , patient.phone_number = #{phone}, patient.address = #{address}
         where patient.username = #{username};
+    </update>
+
+    <update id="updateDoctor">
+        update hospital.doctor
+            set doctor.work = #{work}, doctor.phone_number = #{phone}, doctor.work_time = #{work_time}
+        where doctor.username = #{username};
     </update>
 </mapper>

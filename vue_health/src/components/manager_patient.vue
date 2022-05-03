@@ -108,9 +108,11 @@ export default {
       );
     },
     updateInfo(row) {
+      console.log(row)
       let _this = this;
-      console.log(row.age)
-      console.log(typeof (row.age * 1))
+      row.age = this.editTable.age;
+      row.phoneNumber = this.editTable.phone;
+      row.address = this.editTable.address;
       postRequest("/admin/updatePatient", {
         username: row.username,
         age: _this.editTable.age,
@@ -132,10 +134,10 @@ export default {
     return {
       flag: false,
       tableData: [],
-      editTable:{
-        age:'',
-        phone:'',
-        address:''
+      editTable: {
+        age: '',
+        phone: '',
+        address: ''
       }
     }
   }

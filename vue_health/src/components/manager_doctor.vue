@@ -6,8 +6,8 @@
         style=" ">
       <el-table-column
           fixed
-          prop="id"
-          label="编号"
+          prop="username"
+          label="用户名"
           width="100">
       </el-table-column>
       <el-table-column
@@ -21,7 +21,7 @@
           width="150">
       </el-table-column>
       <el-table-column
-          prop="phone"
+          prop="phoneNumber"
           label="电话"
           width="200">
       </el-table-column>
@@ -31,17 +31,36 @@
           width="50">
       </el-table-column>
       <el-table-column
-          prop="time"
+          prop="workTime"
           label="排班"
           width="400">
       </el-table-column>
-
       <el-table-column
           label="操作"
           width="100">
         <template #default="scope">
           <el-button type="text" size="small" @click="deleteDoctor(scope.row)">删除</el-button>
-          <el-button type="text" size="small">编辑</el-button>
+          <el-popover
+              placement="right"
+              width="400"
+              trigger="click">
+            <el-form :label-position="right" label-width="80px">
+              <el-form-item label="科室">
+                <el-input v-model="editable.work"></el-input>
+              </el-form-item>
+              <el-form-item label="电话">
+                <el-input v-model="editable.phone"></el-input>
+              </el-form-item>
+              <el-form-item label="排班">
+                <el-input v-model="editable.workTime"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="updateDoctor(scope.row)">立即修改</el-button>
+              </el-form-item>
+            </el-form>
+            <el-button type="text" size="small" slot="reference">编辑</el-button>
+          </el-popover>
+
         </template>
       </el-table-column>
     </el-table>
@@ -96,20 +115,33 @@ export default {
         work: _this.addTable.work
       }).then(resp => {
         _this.$alert(resp.data);
-      })
+      });
     },
-    deleteDoctor(row){
+    deleteDoctor(row) {
       let _this = this;
-      postRequest("/admin/deleteDoctor",{
-        username:row.username
-      }).then(resp=>{
+      postRequest("/admin/deleteDoctor", {
+        username: row.username
+      }).then(resp => {
         _this.$alert(resp.data);
       });
-      this.tableData = this.tableData.filter(item=>{
+      this.tableData = this.tableData.filter(item => {
         return item.username !== row.username;
       });
+    },
+    updateDoctor(row) {
+      let _this = this;
+      postRequest("/admin/updateDoctor", {
+        username: row.username,
+        work: _this.editable.work,
+        phone: _this.editable.phone*1,
+        workTime: _this.editable.workTime
+      }).then(resp => {
+        _this.$alert(resp.data);
+      });
+      row.work = this.editable.work;
+      row.phoneNumber = this.editable.phone;
+      row.workTime = this.editable.workTime;
     }
-
   },
 
   mounted() {
@@ -124,6 +156,11 @@ export default {
         name: '',
         sex: '',
         work: ''
+      },
+      editable: {
+        work: '',
+        phone: '',
+        workTime: ''
       }
     }
   }

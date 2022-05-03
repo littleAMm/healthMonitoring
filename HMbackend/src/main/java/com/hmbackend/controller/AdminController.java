@@ -75,4 +75,16 @@ public class AdminController {
             return "error";
         }
     }
+
+    @PostMapping("updateDoctor")
+    public String updateDoctor(@RequestParam("username")String username,
+                               @RequestParam("work")String work,
+                               @RequestParam("phone")int phone,
+                               @RequestParam("workTime")String workTime){
+        if(adminServie.updateDoctor(username, work, phone, workTime)){
+            return "success";
+        }else {
+            return "error";
+        }
+    }
 }
