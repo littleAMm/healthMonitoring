@@ -14,7 +14,7 @@ CREATE TABLE patient
     sex          VARCHAR(1) DEFAULT '男',
     symptom      VARCHAR(200),
     age          NUMERIC(3),
-    phone_number INT(11),
+    phone_number NUMERIC(11),
     address      VARCHAR(50),
     CHECK (sex in ('男', '女') ),
     CHECK (age > 0 AND age < 150)
@@ -30,7 +30,7 @@ CREATE TABLE doctor
     sex          VARCHAR(1) DEFAULT '男'
         CHECK (sex in ('男', '女') ),
     age          NUMERIC(3),
-    phone_number INT(11),
+    phone_number NUMERIC(11),
     address      VARCHAR(50),
     work         VARCHAR(200),
     work_time    VARCHAR(30)
