@@ -26,7 +26,7 @@
           <td>{{ health.pulse }}</td>
           <td>{{ health.date }}</td>
           <td>
-            <span class="delete" @click="deleteHealth(health.index)">删除</span>
+            <span class="delete" @click="deleteHealth(health.tableIndex)">删除</span>
           </td>
         </tr>
         </tbody>
@@ -64,9 +64,10 @@ export default {
         temp: _this.healthTable.temp,
         pulse: _this.healthTable.pulse,
         date: _this.healthTable.date.toString(),
-      })(resp => {
+      }).then(resp => {
         _this.$alert(resp.data)
       });
+      this.queryAllHealth();
     },
     queryAllHealth() {
       let _this = this;
@@ -77,11 +78,14 @@ export default {
     deleteHealth(tableIndex) {
       let _this = this;
       postRequest("/patient/deleteHealth", {
-        id: _this.$root.id,
-        index: tableIndex
+        id: _this.$root.id * 1,
+        index: tableIndex * 1
       }).then(resp => {
-        _this.alert(resp.data)
-      })
+        _this.$alert(resp.data)
+      });
+      this.healthList = this.healthList.filter(item => {
+        return item.tableIndex !== tableIndex
+      });
     }
   }
 }
