@@ -79,12 +79,15 @@ export default {
         if (resp.data === '管理员') {
           _this.$router.replace({path: '/manager'});
           _this.$root.username = this.loginForm.username;
+          sessionStorage.setItem("username",this.loginForm.username)
         } else if (resp.data === '患者') {
           _this.$router.replace({path: '/patient'});
           _this.$root.username = this.loginForm.username;
+          sessionStorage.setItem("username",this.loginForm.username)
         } else if (resp.data === '医生') {
           _this.$router.replace({path:'/doctor'});
           _this.$root.username=this.loginForm.username;
+          sessionStorage.setItem("username",this.loginForm.username)
         } else {
           _this.$alert(resp.data)
         }
