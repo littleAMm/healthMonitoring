@@ -63,12 +63,12 @@
         from hospital.doctor;
     </select>
 
-    <select id="queryDoctorByUsername" resultType="com.hmbackend.bean.Doctor">
+    <select id="queryDoctorByUsername" resultMap="doctor">
         select *
         from hospital.doctor
         where doctor.username = #{username};
     </select>
-    <select id="queryPatientByUsername" resultType="com.hmbackend.bean.Patient">
+    <select id="queryPatientByUsername" resultMap="patient">
         select *
         from hospital.patient
         where patient.username = #{username};
