@@ -71,7 +71,7 @@ export default {
     },
     queryAllHealth() {
       let _this = this;
-      getRequest("/patient/allHealth").then(resp => {
+      getRequest("/patient/allHealth/" + _this.$root.id).then(resp => {
         _this.healthList = resp.data
       })
     },

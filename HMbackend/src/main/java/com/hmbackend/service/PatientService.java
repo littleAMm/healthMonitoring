@@ -9,8 +9,6 @@ import com.hmbackend.mapper.PatientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,6 +42,13 @@ public class PatientService {
             return false;
         }
     }
+    public boolean addStatus(int id,String status){
+        if(patientMapper.updateStatus(id,status)!=0){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
     public Doctor queryDoctorSelected(int id) {
         DocPat docPat = patientMapper.queryDoctorId(id);
@@ -59,12 +64,8 @@ public class PatientService {
         }
     }
 
-    public List<Doctor> queryAllDoctor() {
-        return adminMapper.queryAllDoctor();
-    }
-
-    public List<Health> queryAllHealth() {
-        return patientMapper.queryAllHealth();
+    public List<Health> queryAllHealth(int id) {
+        return patientMapper.queryAllHealth(id);
     }
 
     public boolean deleteHealth(int id, int index) {

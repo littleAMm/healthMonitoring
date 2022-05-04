@@ -32,7 +32,6 @@
         </template>
         {{ doctorInfo.phoneNumber }}
       </el-descriptions-item>
-
       <el-descriptions-item>
         <template slot="label">
           <i class="el-icon-office-building"></i>
@@ -54,7 +53,6 @@
         :visible.sync="drawer"
         :with-header="false" size="60%">
       <div style="display: flex;justify-content: flex-start;flex-wrap: wrap;padding:10px;">
-
         <el-card class="box-card" v-for="(doctor,index) in doctorList" :key="index">
           <div slot="header" class="clearfix">
             <span>{{ doctor.name }}</span>
@@ -147,6 +145,10 @@ export default {
       }).then(resp => {
         _this.$alert(resp.data)
       });
+      setTimeout(()=>{
+        this.querySelectedDoctor(_this.$root.id),
+            1000
+      })
     },
     //查询所有医生
     queryAllDoctors() {
@@ -156,9 +158,10 @@ export default {
       })
     },
     //查询已经选择的医生
-    querySelectedDoctor() {
+    querySelectedDoctor(ID) {
       let _this = this;
-      getRequest("/patient/selectedDoctor/" + _this.$root.id).then(resp => {
+      ID = this.$root.id
+      getRequest("/patient/selectedDoctor/" + ID).then(resp => {
         _this.doctorInfo = resp.data;
       })
     }

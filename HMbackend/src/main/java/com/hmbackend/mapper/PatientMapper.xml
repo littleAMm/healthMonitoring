@@ -34,7 +34,7 @@
     </delete>
 
     <insert id="addHeath" parameterType="com.hmbackend.bean.Health">
-        insert into hospital.health (patient_id, tmep, status, pulse, date)
+        insert into hospital.health (patient_id, temp, status, pulse, date)
             values (#{patientId},#{temp},#{status},#{pulse},#{date});
     </insert>
 
@@ -66,7 +66,8 @@
     
     <select id="queryAllHealth" resultMap="health">
         select *
-        from hospital.health;
+        from hospital.health
+        where health.patient_id = #{patientId};
     </select>
 
     <delete id="deleteHealth">
@@ -74,4 +75,10 @@
         from hospital.health
                  where health.patient_id = #{patientId} and health.table_index = #{tableIndex};
     </delete>
+
+    <update id="updateStatus">
+        update hospital.patient
+            set patient.status = #{status}
+        where patient.id = #{patientId};
+    </update>
 </mapper>

@@ -61,7 +61,7 @@
         </el-form-item>
 
         <el-form-item label="联系地址">
-          <el-input v-model="patientInfo.detailedAddress"></el-input>
+          <el-input v-model="patientInfo.address"></el-input>
         </el-form-item>
 
         <el-form-item>
@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import {getRequest,postRequest} from "@/utils/api";
+import {getRequest, postRequest} from "@/utils/api";
 
 export default {
   name: "patient_info",
@@ -87,11 +87,13 @@ export default {
           this.amend = false;
       this.updateInfo();
     },
-    loadPatient() {
+    loadPatient(username) {
       let _this = this
-      getRequest('/patient/info/' + _this.$root.username).then(resp => {
+      username = sessionStorage.getItem("username")
+      getRequest('/patient/info/' + username).then(resp => {
         // this.patientInfo.name = resp.data.name;
-        // _this.$root.id = resp.data.id;
+        _this.$root.id = resp.data.id;
+        _this.$root.username = resp.data.username
         // this.patientInfo.username = resp.data.username;
         // this.patientInfo.sex = resp.data.sex;
         // this.patientInfo.phoneNumber = resp.data.phoneNumber;
@@ -107,7 +109,7 @@ export default {
         id: _this.$root.id,
         age: _this.patientInfo.age,
         phoneNumber: _this.patientInfo.phoneNumber,
-        address: _this.patientInfo.detailedAddress,
+        address: _this.patientInfo.address,
       }).then(resp => {
         _this.$alert(resp.data)
       })
@@ -121,8 +123,7 @@ export default {
     return {
       watch: true,
       amend: false,
-      patientInfo: {
-      }
+      patientInfo: {}
     }
   }
 }

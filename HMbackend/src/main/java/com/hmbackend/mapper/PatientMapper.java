@@ -7,7 +7,6 @@ import com.hmbackend.bean.Patient;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -32,7 +31,9 @@ public interface PatientMapper {
 
     DocPat queryDoctorId(@Param("patientId") int patientId);
 
-    List<Health> queryAllHealth();
+    List<Health> queryAllHealth(@Param("patientId")int id);
 
     int deleteHealth(@Param("patientId") int patientId, @Param("tableIndex") int tableIndex);
+
+    int updateStatus(@Param("patientId")int id,@Param("status")String status);
 }

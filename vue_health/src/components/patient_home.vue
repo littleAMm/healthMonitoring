@@ -2,7 +2,7 @@
   <el-tabs tab-position="top" v-model="activeName" @tab-click="handleClick">
     <el-tab-pane label="个人信息" name="first">
       <keep-alive>
-        <patient_info/>
+        <patient_info ref="info"/>
       </keep-alive>
     </el-tab-pane>
     <el-tab-pane label="我的医生" name="second">
@@ -53,6 +53,9 @@ export default {
     patient_doctor,
     patient_info,
     patient_health
+  },
+  mounted() {
+    this.$refs.info.loadPatient(sessionStorage.getItem("username"))
   }
 }
 </script>

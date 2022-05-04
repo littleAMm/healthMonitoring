@@ -1,13 +1,14 @@
 package com.hmbackend.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.hmbackend.bean.Doctor;
 import com.hmbackend.bean.Health;
 import com.hmbackend.bean.Patient;
+import com.hmbackend.service.AdminServie;
 import com.hmbackend.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -21,17 +22,20 @@ import java.util.List;
 public class PatientController {
     @Autowired
     PatientService patientService;
+    @Autowired
+    AdminServie adminServie;
 
     @GetMapping("/info/{username}")
-    Patient queryInfo(@PathVariable("username") String username) {
-        return patientService.queryPatientByUsername(username);
+    public String queryInfo(@PathVariable("username") String username) {
+        Patient patient = patientService.queryPatientByUsername(username);
+        return JSON.toJSONString(patient);
     }
 
     @PostMapping("/updateInfo")
-    String updateInfo(@RequestParam("id") int id,
-                      @RequestParam("age") int age,
-                      @RequestParam("phoneNumber") int phoneNumber,
-                      @RequestParam("address") String address) {
+    public String updateInfo(@RequestParam("id") int id,
+                             @RequestParam("age") int age,
+                             @RequestParam("phoneNumber") int phoneNumber,
+                             @RequestParam("address") String address) {
         if (patientService.updateInfo(id, age, phoneNumber, address)) {
             return "success";
         } else {
@@ -40,55 +44,56 @@ public class PatientController {
     }
 
     @GetMapping("/allDoctors")
-    List<Doctor> queryAllDoctor(){
-        return patientService.queryAllDoctor();
+    public String queryAllDoctor() {
+        return adminServie.queryAllDoctor();
     }
 
     @PostMapping("/addDoctor")
-    String addDoctor(@RequestParam("doctorId")int docID,
-                     @RequestParam("patientId")int patID){
-        if(patientService.addDoctor(docID,patID)){
+    public String addDoctor(@RequestParam("doctorId") int docID,
+                            @RequestParam("patientId") int patID) {
+        if (patientService.addDoctor(docID, patID)) {
             return "success";
-        }else {
+        } else {
             return "error";
         }
     }
 
     @PostMapping("/addHealth")
-    String addHealth(@RequestParam("id")int id,
-                     @RequestParam("temp")double temp,
-                     @RequestParam("pulse")double pulse,
-                     @RequestParam("date")String date){
+    public String addHealth(@RequestParam("id") int id,
+                            @RequestParam("temp") double temp,
+                            @RequestParam("pulse") double pulse,
+                            @RequestParam("date") String date) {
         String status = null;
-        if(temp>39&&pulse<70){
+        if (temp > 39 && pulse < 70) {
             status = "差";
-        }else {
+        } else {
             status = "良好";
         }
-        if(patientService.addHealth(id,status,temp,pulse,date)){
+        if (patientService.addHealth(id, status, temp, pulse, date)
+                && patientService.addStatus(id,status)) {
             return "success";
-        }else {
+        } else {
             return "error";
         }
     }
 
     @PostMapping("/deleteHealth")
-    String deleteHealth(@RequestParam("id")int id,
-                        @RequestParam("index")int index){
-        if(patientService.deleteHealth(id, index)){
+    public String deleteHealth(@RequestParam("id") int id,
+                               @RequestParam("index") int index) {
+        if (patientService.deleteHealth(id, index)) {
             return "success";
-        }else {
+        } else {
             return "false";
         }
     }
 
     @GetMapping("/selectedDoctor/{patientId}")
-    Doctor querySelectedDoctor(@PathVariable("patientId")int id){
+    public Doctor querySelectedDoctor(@PathVariable("patientId") int id) {
         return patientService.queryDoctorSelected(id);
     }
 
-    @GetMapping("/allHealth")
-    List<Health> queryAllHealth(){
-        return patientService.queryAllHealth();
+    @GetMapping("/allHealth/{patientId}")
+    public List<Health> queryAllHealth(@PathVariable("patientId") int id) {
+        return patientService.queryAllHealth(id);
     }
 }
