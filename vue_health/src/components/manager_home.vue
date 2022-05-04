@@ -38,7 +38,6 @@ export default {
     }
   },
   components: {
-
     manager_doctor,
     manager_patient
   }

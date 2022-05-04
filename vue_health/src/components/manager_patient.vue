@@ -49,7 +49,7 @@
 
       <el-table-column
           label="操作"
-          width="100">
+          width="200">
         <template #default="scope">
           <el-button type="text" size="small" @click="handleClickDelete(scope.row)">删除</el-button>
           <el-popover
@@ -73,6 +73,7 @@
             <el-button type="text" size="small" slot="reference">编辑</el-button>
           </el-popover>
           <el-button type="text" size="small" @click="handleClickRemind(scope.row)">提醒医生</el-button>
+          <el-button type="primary" @click="updatePwd(scope.row)">初始化密码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -121,6 +122,14 @@ export default {
       }).then(resp => {
         _this.$alert(resp.data)
       })
+    },
+    updatePwd(row){
+      let _this = this;
+      postRequest("/admin/updatePwd",{
+        username: row.username
+      }).then(resp=>{
+        _this.$alert(resp.data)
+      });
     },
     handleClickRemind(row) {
       console.log(row)

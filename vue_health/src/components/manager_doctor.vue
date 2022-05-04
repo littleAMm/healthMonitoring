@@ -1,5 +1,29 @@
 <template>
   <div>
+    <el-popover
+        placement="right"
+        width="400"
+        trigger="click">
+      <el-form :label-position="right" label-width="80px">
+        <el-form-item label="用户名">
+          <el-input type="textarea" v-model="addTable.username"></el-input>
+        </el-form-item>
+        <el-form-item label="姓名">
+          <el-input type="textarea" v-model="addTable.name"></el-input>
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-radio-group v-model="addTable.sex">
+            <el-radio label="男">男</el-radio>
+            <el-radio label="女">女</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="工作">
+          <el-input type="textarea" v-model="addTable.work"></el-input>
+        </el-form-item>
+        <el-button type="primary" plain style="float: right" @click="addDoctor">确认</el-button>
+      </el-form>
+      <el-button style="float:right" slot="reference">新增</el-button>
+    </el-popover>
     <el-table
         :data="tableData"
         border
@@ -37,7 +61,7 @@
       </el-table-column>
       <el-table-column
           label="操作"
-          width="100">
+          width="200">
         <template #default="scope">
           <el-button type="text" size="small" @click="deleteDoctor(scope.row)">删除</el-button>
           <el-popover
@@ -60,37 +84,10 @@
             </el-form>
             <el-button type="text" size="small" slot="reference">编辑</el-button>
           </el-popover>
-
+          <el-button type="primary" @click="updatePwd(scope.row)">初始化密码</el-button>
         </template>
       </el-table-column>
     </el-table>
-
-
-    <el-popover
-        placement="right"
-        width="400"
-        trigger="click">
-      <el-form :label-position="right" label-width="80px">
-
-        <el-form-item label="用户名">
-          <el-input type="textarea" v-model="addTable.username"></el-input>
-        </el-form-item>
-        <el-form-item label="姓名">
-          <el-input type="textarea" v-model="addTable.name"></el-input>
-        </el-form-item>
-        <el-form-item label="性别">
-          <el-radio-group v-model="addTable.sex">
-            <el-radio label="男">男</el-radio>
-            <el-radio label="女">女</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="工作">
-          <el-input type="textarea" v-model="addTable.work"></el-input>
-        </el-form-item>
-        <el-button type="primary" plain style="float: right" @click="addDoctor">确认</el-button>
-      </el-form>
-      <el-button style="float:right" slot="reference">新增</el-button>
-    </el-popover>
   </div>
 </template>
 
@@ -126,6 +123,14 @@ export default {
       });
       this.tableData = this.tableData.filter(item => {
         return item.username !== row.username;
+      });
+    },
+    updatePwd(row){
+      let _this = this;
+      postRequest("/admin/updatePwd",{
+        username: row.username
+      }).then(resp=>{
+        _this.$alert(resp.data)
       });
     },
     updateDoctor(row) {
