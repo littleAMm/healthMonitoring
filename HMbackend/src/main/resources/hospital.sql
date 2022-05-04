@@ -16,6 +16,7 @@ CREATE TABLE patient
     age          NUMERIC(3),
     phone_number NUMERIC(11),
     address      VARCHAR(50),
+    status       varchar(3),
     CHECK (sex in ('男', '女') ),
     CHECK (age > 0 AND age < 150)
 ) ENGINE = INNODB
