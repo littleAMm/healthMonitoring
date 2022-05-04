@@ -6,11 +6,9 @@ import com.hmbackend.bean.Patient;
 import com.hmbackend.bean.User;
 import com.hmbackend.mapper.AdminMapper;
 import com.hmbackend.mapper.LoginRegMapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -23,10 +21,8 @@ import java.util.List;
 public class AdminServie {
     @Autowired
     AdminMapper adminMapper;
-
     @Autowired
     LoginRegMapper loginRegMapper;
-
     public String addDoctor(String username, String name, String sex, String work) {
         if (loginRegMapper.queryUserByName(username) == null) {
             User user = new User(username, "123456", "医生");
@@ -38,7 +34,6 @@ public class AdminServie {
             return "用户名重复，请重新输入";
         }
     }
-
     public String queryAllDoctor() {
         String result = null;
         try {
@@ -49,19 +44,17 @@ public class AdminServie {
         }
         return result;
     }
-
-    public String queryPatientUnhealthy() {
+    public String queryPatient() {
         String result = null;
         try {
-            List<Patient> list = adminMapper.queryPatientUnhealthy();
+            List<Patient> list = adminMapper.queryPatient();
             result = JSON.toJSONString(list);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
     }
-
-    public boolean deleteDoctor(@Param("username") String username) {
+    public boolean deleteDoctor(String username) {
         if (adminMapper.deleteUser(username) != 0
                 && adminMapper.deleteDoctor(username) != 0) {
             return true;
@@ -69,30 +62,33 @@ public class AdminServie {
             return false;
         }
     }
-
-    public boolean deletePatient(@Param("username") String username) {
-        if (adminMapper.deleteUser(username) != 0
-                && adminMapper.deletePatient(username) != 0) {
+    public boolean deletePatient(String id) {
+        if (adminMapper.deleteUser(id) != 0
+                && adminMapper.deletePatient(id) != 0) {
             return true;
         } else {
             return false;
         }
     }
-
-    public boolean updatePwd(@Param("username") String username){
-        if (adminMapper.updatePwd(username, "666666")!=0){
+    public boolean updatePwd(String username) {
+        if (adminMapper.updatePwd(username, "666666") != 0) {
             return true;
-        }else return false;
+        } else {
+            return false;
+        }
     }
-
-    public String  arrangeTime(int doctorId, Timestamp startTime,Timestamp endTime){
-        Doctor doctor = adminMapper.queryDoctorById(doctorId);
-        if (doctor==null){
-            return "ID错误，请检查";
-        }else if(startTime.before(endTime)){
-            return "安排成功";
-        }else {
-            return "开始时间必须在结束时间之前";
+    public boolean updatePatient(String username, int age, int phone, String address) {
+        if (adminMapper.updatePatient(username, age, phone, address) != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean updateDoctor(String username, String work, int phone, String workTime) {
+        if (adminMapper.updateDoctor(username, work, phone, workTime) != 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

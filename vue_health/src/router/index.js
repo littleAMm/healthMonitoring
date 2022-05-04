@@ -7,6 +7,7 @@ import patient_home from "@/components/patient_home";
 import patient_info from "@/components/patient_info";
 import patient_health from "@/components/patient_health";
 import patient_doctor from "@/components/patient_doctor";
+//import patient_message from "@/components/patient_message";
 import doctor_home from "@/components/doctor_home";
 import doctor_info from "@/components/doctor_info";
 import doctor_message from "@/components/doctor_message";
@@ -17,9 +18,11 @@ import manager_patient from "@/components/manager_patient";
 
 
 
+
 Vue.use(Router)
 
 export default new Router({
+    mode: 'history',
     routes: [
         {
             path: '/',
@@ -55,7 +58,12 @@ export default new Router({
                     path:'/patient/doctor',
                     name:'患者已选择的医生',
                     component:patient_doctor
-                }
+                },
+                // {
+                //     path:'/patient/message',
+                //     name:'患者接收的信息',
+                //     component:patient_message
+                // }
             ]
         },
         {
@@ -94,6 +102,11 @@ export default new Router({
                     path:'/manager/patient',
                     name:'管理员查看患者',
                     component:manager_patient
+                },
+                {
+                    path:'/manager/reset',
+                    name:'管理员修改密码',
+                    component:vue_reset
                 }
             ]
         }

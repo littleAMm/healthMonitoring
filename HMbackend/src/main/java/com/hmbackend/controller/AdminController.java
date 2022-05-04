@@ -4,9 +4,6 @@ import com.hmbackend.service.AdminServie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Timestamp;
-
 /**
  * @author_name:xiatao
  * @data:2022/3/26
@@ -32,9 +29,9 @@ public class AdminController {
         return adminServie.queryAllDoctor();
     }
 
-    @GetMapping("/allPatientUnhealthy")
-    public String queryPatientUnhealthy() {
-        return adminServie.queryPatientUnhealthy();
+    @GetMapping("/allPatient")
+    public String queryPatient() {
+        return adminServie.queryPatient();
     }
 
     @PostMapping("/deleteDoctor")
@@ -60,14 +57,34 @@ public class AdminController {
     @PostMapping("/updatePwd")
     @Transactional
     public String updatePwd(@RequestParam("username") String username) {
-        if (adminServie.updatePwd(username)) return "修改成功";
-        else return "修改失败";
+        if (adminServie.updatePwd(username)) {
+            return "修改成功";
+        } else {
+            return "修改失败";
+        }
     }
 
-    @PostMapping("/arrangeTime")
-    public String arrangeTime(@RequestParam("doctorId") int doctorId,
-                              @RequestParam("startTime") Timestamp startTime,
-                              @RequestParam("endTime") Timestamp endTime) {
-        return adminServie.arrangeTime(doctorId, startTime, endTime);
+    @PostMapping("/updatePatient")
+    public String updatePatient(@RequestParam("username")String username,
+                                @RequestParam("age")int age,
+                                @RequestParam("phoneNumber")int phone,
+                                @RequestParam("address")String address){
+        if(adminServie.updatePatient(username, age, phone, address)){
+            return "success";
+        }else {
+            return "error";
+        }
+    }
+
+    @PostMapping("updateDoctor")
+    public String updateDoctor(@RequestParam("username")String username,
+                               @RequestParam("work")String work,
+                               @RequestParam("phone")int phone,
+                               @RequestParam("workTime")String workTime){
+        if(adminServie.updateDoctor(username, work, phone, workTime)){
+            return "success";
+        }else {
+            return "error";
+        }
     }
 }

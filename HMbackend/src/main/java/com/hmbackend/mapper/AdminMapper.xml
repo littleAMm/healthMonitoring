@@ -30,28 +30,45 @@
         where user.username = #{username};
     </update>
 
-    <select id="queryPatientUnhealthy" resultType="com.hmbackend.bean.Patient">
-        select _p.*
-        from hospital.patient _p, hospital.health _h
-        where _h.status = #{"差"} and _p.id = _h.patient_id;
+    <resultMap id="patient" type="com.hmbackend.bean.Patient">
+        <id column="id" property="id"/>
+        <id column="username" property="username"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="symptom" property="symptom"/>
+        <result column="age" property="age"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="address" property="address"/>
+    </resultMap>
+
+    <select id="queryPatient" resultMap="patient">
+        select *
+        from hospital.patient;
     </select>
 
-    <insert id="arrangeTime" parameterType="com.hmbackend.bean.WorkTime">
-        insert into hospital.worktime(doctor_id, start_time, end_time)
-        values (#{doctorId},#{startTime},#{endTime});
-    </insert>
+    <resultMap id="doctor" type="com.hmbackend.bean.Doctor">
+        <id column="id" property="id"/>
+        <id column="username" property="username"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="address" property="address"/>
+        <result column="work" property="work"/>
+        <result column="work_time" property="workTime"/>
+    </resultMap>
 
-    <select id="queryAllDoctor" resultType="com.hmbackend.bean.Doctor">
+    <select id="queryAllDoctor" resultMap="doctor">
         select *
         from hospital.doctor;
     </select>
 
-    <select id="queryDoctorByUsername" resultType="com.hmbackend.bean.Doctor">
+    <select id="queryDoctorByUsername" resultMap="doctor">
         select *
         from hospital.doctor
         where doctor.username = #{username};
     </select>
-    <select id="queryPatientByUsername" resultType="com.hmbackend.bean.Patient">
+    <select id="queryPatientByUsername" resultMap="patient">
         select *
         from hospital.patient
         where patient.username = #{username};
@@ -62,4 +79,16 @@
         from hospital.doctor
         where id = #{id};
     </select>
+
+    <update id="updatePatient">
+        update hospital.patient
+            set patient.age = #{age} , patient.phone_number = #{phone}, patient.address = #{address}
+        where patient.username = #{username};
+    </update>
+
+    <update id="updateDoctor">
+        update hospital.doctor
+            set doctor.work = #{work}, doctor.phone_number = #{phone}, doctor.work_time = #{work_time}
+        where doctor.username = #{username};
+    </update>
 </mapper>

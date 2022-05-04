@@ -10,60 +10,60 @@
             <i class="el-icon-user"></i>
             姓名
           </template>
-          {{ name }}
+          {{ patientInfo.name }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-male"></i>/<i class="el-icon-female"></i>
             性别
           </template>
-          {{ sex }}
+          {{ patientInfo.sex }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-thumb"></i>
             年龄
           </template>
-          {{ age }}
+          {{ patientInfo.age }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-mobile-phone"></i>
             手机号
           </template>
-          {{ phoneNumber }}
+          {{ patientInfo.phoneNumber }}
         </el-descriptions-item>
-        
+
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-office-building"></i>
             联系地址
           </template>
-          {{ detailedAddress }}
+          {{ patientInfo.address }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-tickets"></i>
             病症
           </template>
-          {{ symptom }}
+          {{ patientInfo.symptom }}
         </el-descriptions-item>
       </el-descriptions>
     </div>
     <div v-show="amend">
       <el-form :label-position="right" label-width="80px">
-        
+
         <el-form-item label="年龄">
-          <el-input v-model="age"></el-input>
+          <el-input v-model="patientInfo.age"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-          <el-input v-model="phoneNumber"></el-input>
+          <el-input v-model="patientInfo.phoneNumber"></el-input>
         </el-form-item>
-        
+
         <el-form-item label="联系地址">
-          <el-input v-model="detailedAddress"></el-input>
+          <el-input v-model="patientInfo.address"></el-input>
         </el-form-item>
-        
+
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">立即修改</el-button>
         </el-form-item>
@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import {postRequest} from "@/utils/api";
+import {getRequest, postRequest} from "@/utils/api";
 
 export default {
   name: "patient_info",
@@ -81,30 +81,39 @@ export default {
     open() {
       this.watch = false,
           this.amend = true
-          
     },
-    submitForm(formName) {
+    submitForm() {
       this.watch = true,
-          this.amend = false,
-          this.$refs[formName].validate((valid) => {
-            if (valid) {
-              alert('submit!');
-            } else {
-              console.log('error submit!!');
-              return false;
-            }
-          });
+          this.amend = false;
+      this.updateInfo();
     },
-    loadPatient() {
+    loadPatient(username) {
       let _this = this
-      let localUsername = _this.$root.username
-      postRequest('/patient/info', {username:localUsername} ).then(resp => {
-        this.name = resp.data.name;
+      username = sessionStorage.getItem("username")
+      getRequest('/patient/info/' + username).then(resp => {
+        // this.patientInfo.name = resp.data.name;
         _this.$root.id = resp.data.id;
-        this.username = resp.data.username;
-        this.sex = resp.data.sex;
-        this.phoneNumber= _this.$root.id;
+        _this.$root.username = resp.data.username
+        // this.patientInfo.username = resp.data.username;
+        // this.patientInfo.sex = resp.data.sex;
+        // this.patientInfo.phoneNumber = resp.data.phoneNumber;
+        // this.patientInfo.age = resp.data.age;
+        // this.patientInfo.detailedAddress = resp.data.address;
+        // this.patientInfo.symptom = resp.data.symptom;
+        _this.patientInfo = resp.data;
       })
+    },
+    updateInfo() {
+      let _this = this;
+      postRequest("/patient/updateInfo", {
+        id: _this.$root.id,
+        age: _this.patientInfo.age,
+        phoneNumber: _this.patientInfo.phoneNumber,
+        address: _this.patientInfo.address,
+      }).then(resp => {
+        _this.$alert(resp.data)
+      })
+
     }
   },
   mounted() {
@@ -113,15 +122,8 @@ export default {
   data() {
     return {
       watch: true,
-            amend: false,
-            patientInfo:{
-            name: this.$root.username,
-            sex:"女",
-            age:"",
-            phoneNumber: "",
-            detailedAddress: "",
-            symptom: ""
-            }
+      amend: false,
+      patientInfo: {}
     }
   }
 }

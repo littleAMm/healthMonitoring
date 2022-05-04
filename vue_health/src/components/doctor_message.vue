@@ -60,77 +60,77 @@ export default {
 
 </script>
 
-<style scoped lang="scss">
-.chat-box,
-.chat-box-list {
+<!--<style scoped lang="scss">-->
+<!--.chat-box,-->
+<!--.chat-box-list {-->
 
-  display: flex;
-  flex-direction: column;
-  list-style-type: none;
+<!--  display: flex;-->
+<!--  flex-direction: column;-->
+<!--  list-style-type: none;-->
 
-}
-.chat-box-list-container {
-  overflow: scroll;
-  margin-bottom: 100px;
-}
-.chat-box-list {
-  padding-left: 10px;
-  padding-right: 10px;
-  span {
-    padding: 8px;
-    color: white;
-    border-radius: 4px;
-  }
-  .server {
-    span {
-      background: #6900cc;
-    }
-    p {
-      float: left;
-    }
-  }
-  .client {
-    span {
-      background: #a2a69d;
-    }
-    p {
-      float: right;
-    }
-  }
-}
-.chat-box {
-  margin: 10px;
-  border: 1px solid #999;
-  width: 50vw;
-  height: 50vh;
-  border-radius: 4px;
-  margin-left: auto;
-  margin-right: auto;
-  align-items: space-between;
-  justify-content: space-between;
-}
-.chat-inputs {
-  display: flex;
+<!--}-->
+<!--.chat-box-list-container {-->
+<!--  overflow: scroll;-->
+<!--  margin-bottom: 100px;-->
+<!--}-->
+<!--.chat-box-list {-->
+<!--  padding-left: 10px;-->
+<!--  padding-right: 10px;-->
+<!--  span {-->
+<!--    padding: 8px;-->
+<!--    color: white;-->
+<!--    border-radius: 4px;-->
+<!--  }-->
+<!--  .server {-->
+<!--    span {-->
+<!--      background: #6900cc;-->
+<!--    }-->
+<!--    p {-->
+<!--      float: left;-->
+<!--    }-->
+<!--  }-->
+<!--  .client {-->
+<!--    span {-->
+<!--      background: #a2a69d;-->
+<!--    }-->
+<!--    p {-->
+<!--      float: right;-->
+<!--    }-->
+<!--  }-->
+<!--}-->
+<!--.chat-box {-->
+<!--  margin: 10px;-->
+<!--  border: 1px solid #999;-->
+<!--  width: 50vw;-->
+<!--  height: 50vh;-->
+<!--  border-radius: 4px;-->
+<!--  margin-left: auto;-->
+<!--  margin-right: auto;-->
+<!--  align-items: space-between;-->
+<!--  justify-content: space-between;-->
+<!--}-->
+<!--.chat-inputs {-->
+<!--  display: flex;-->
 
-  input {
-    line-height: 3;
-    width: 100%;
-    border: 1px solid rgb(101, 6, 6);
-    border-left: none;
-    border-bottom: none;
-    border-right: none;
-    border-bottom-left-radius: 4px;
-    padding-left: 15px;
-  }
-  button {
-    width: 145px;
-    color: white;
-    background: #4bde5e;
-    border-color: #999;
-    border-bottom: none;
-    border-right:none;
-    border-bottom-right-radius: 3px;
-  }
-}
+<!--  input {-->
+<!--    line-height: 3;-->
+<!--    width: 100%;-->
+<!--    border: 1px solid rgb(101, 6, 6);-->
+<!--    border-left: none;-->
+<!--    border-bottom: none;-->
+<!--    border-right: none;-->
+<!--    border-bottom-left-radius: 4px;-->
+<!--    padding-left: 15px;-->
+<!--  }-->
+<!--  button {-->
+<!--    width: 145px;-->
+<!--    color: white;-->
+<!--    background: #4bde5e;-->
+<!--    border-color: #999;-->
+<!--    border-bottom: none;-->
+<!--    border-right:none;-->
+<!--    border-bottom-right-radius: 3px;-->
+<!--  }-->
+<!--}-->
 
-</style>
+<!--</style>-->
